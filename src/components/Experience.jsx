@@ -24,7 +24,7 @@ const Experience = ({ darkMode = false }) => {
               key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: false, margin: '-100px' }}
               transition={{ duration: 0.6 }}
               className={`grid grid-cols-1 md:grid-cols-12 gap-8 border-t pt-16 ${darkMode ? 'border-white/10' : 'border-black'}`}
             >

@@ -1,32 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import TickerBanner from './components/TickerBanner';
-import Services from './components/Services';
-import Experience from './components/Experience';
-import WhyHireMe from './components/WhyHireMe';
-import Portfolio from './components/Portfolio';
-import Testimonials from './components/Testimonials';
-import CTASection from './components/CTASection';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
 import { portfolioData } from './data/portfolioData';
 
-// Unified Home Landing Page containing all sections seamlessly
+const Hero = lazy(() => import('./components/Hero'));
+const About = lazy(() => import('./components/About'));
+const TickerBanner = lazy(() => import('./components/TickerBanner'));
+const Services = lazy(() => import('./components/Services'));
+const Experience = lazy(() => import('./components/Experience'));
+const WhyHireMe = lazy(() => import('./components/WhyHireMe'));
+const Portfolio = lazy(() => import('./components/Portfolio'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const CTASection = lazy(() => import('./components/CTASection'));
+
 const Home = ({ darkMode }) => {
   return (
-    <div className="w-full flex flex-col">
-      <Hero darkMode={darkMode} />
-      <TickerBanner />
-      <Services darkMode={darkMode} />
-      <Experience darkMode={darkMode} />
-      <WhyHireMe darkMode={darkMode} />
-      <Portfolio darkMode={darkMode} />
-      <Testimonials darkMode={darkMode} />
-      <CTASection darkMode={darkMode} />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="w-full flex flex-col">
+        <Hero darkMode={darkMode} />
+        <About darkMode={darkMode} />
+        <TickerBanner />
+        <Services darkMode={darkMode} />
+        <WhyHireMe darkMode={darkMode} />
+        <Portfolio darkMode={darkMode} />
+        <CTASection darkMode={darkMode} />
+      </div>
+    </Suspense>
   );
 };
 
@@ -38,16 +41,20 @@ function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const location = useLocation();
 
-  // Handle hash scrolling when navigating to #services, #experience, etc.
   useEffect(() => {
-    if (location.hash) {
-      const targetId = location.hash.replace('#', '');
-      const elem = document.getElementById(targetId);
-      if (elem) {
-        setTimeout(() => {
-          elem.scrollIntoView({ behavior: 'smooth' });
-        }, 150);
-      }
+    if (!location.hash) return;
+
+    const targetId = location.hash.replace('#', '');
+    const elem = document.getElementById(targetId);
+
+    if (elem) {
+      // Tahap 1: Instan ke target agar viewport pindah cepat
+      elem.scrollIntoView({ behavior: 'auto' });
+
+      // Tahap 2: Smooth adjust setelah jeda singkat untuk sinkronisasi layout/animasi
+      setTimeout(() => {
+        elem.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
     }
   }, [location]);
 
@@ -94,18 +101,22 @@ function App() {
         )}
       </AnimatePresence>
 
+      <CustomCursor darkMode={darkMode} />
       <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
 
       <main className="w-full pt-16">
-        <Routes>
-          <Route path="/" element={<Home darkMode={darkMode} />} />
-          <Route path="/services" element={<Services darkMode={darkMode} />} />
-          <Route path="/experience" element={<Experience darkMode={darkMode} />} />
-          <Route path="/why-me" element={<WhyHireMe darkMode={darkMode} />} />
-          <Route path="/portfolio" element={<Portfolio darkMode={darkMode} />} />
-          <Route path="/testimonials" element={<Testimonials darkMode={darkMode} />} />
-          <Route path="/contact" element={<CTASection darkMode={darkMode} />} />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home darkMode={darkMode} />} />
+            <Route path="/about" element={<About darkMode={darkMode} />} />
+            <Route path="/services" element={<Services darkMode={darkMode} />} />
+            <Route path="/experience" element={<Experience darkMode={darkMode} />} />
+            <Route path="/why-me" element={<WhyHireMe darkMode={darkMode} />} />
+            <Route path="/portfolio" element={<Portfolio darkMode={darkMode} />} />
+            <Route path="/testimonials" element={<Testimonials darkMode={darkMode} />} />
+            <Route path="/contact" element={<CTASection darkMode={darkMode} />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <Footer darkMode={darkMode} />

@@ -13,61 +13,62 @@ export const portfolioData = {
       { value: 100, suffix: "%", label: "Ready to Learn" },
     ],
     social: {
-      github: "https://github.com",
-      linkedin: "https://linkedin.com",
-      dribbble: "https://dribbble.com",
-      twitter: "https://twitter.com",
-      email: "hello@alexrivera.design",
+      github: "https://github.com/Syechan112",
+
+      email: "[EMAIL_ADDRESS]",
     },
   },
 
   tickerItems: [
-    "Product Design",
-    "Design Systems",
-    "UI/UX Architecture",
-    "Next.js & React",
-    "Mobile Apps",
-    "SaaS Dashboards",
-    "Micro-Interactions",
-    "Conversion Optimization",
+    "Frontend Web Development",
+    "Responsive Web Design",
+    "Product Implementation",
+    "UI/UX Execution",
+    "Web Performance Optimization",
+    "Interactive Interfaces",
+    "Clean Code Practice",
+    "Hands-on Project Development",
   ],
 
   services: [
     {
-      id: "ui-ux",
-      title: "UI/UX & Product Design",
+      id: "frontend",
+      title: "Frontend Development",
       description:
-        "Crafting intuitive user journeys, high-fidelity prototypes, and design systems tailored for rapid business scaling.",
-      icon: "Layout",
-      tags: ["Figma", "Design Systems", "Prototyping"],
-      stats: "65+ Projects Delivered",
-    },
-    {
-      id: "frontend-dev",
-      title: "Frontend Engineering",
-      description:
-        "Developing blazing-fast, accessible web applications using React, Next.js, Tailwind CSS, and Framer Motion.",
+        "Building responsive and interactive interfaces with a focus on clean design, usability, and a smooth experience across different screen sizes.",
       icon: "Code2",
-      tags: ["React 19", "Tailwind CSS", "Framer Motion"],
-      stats: "Sub-second LCP Scores",
+      tags: ["React", "Vue", "JavaScript", "Tailwind CSS"],
+      stats: "Modern Web Interfaces",
     },
+
     {
-      id: "saas-dashboard",
-      title: "SaaS & Dashboard Architecture",
+      id: "backend",
+      title: "Backend Development",
       description:
-        "Complex data visualization, analytical dashboards, and admin control panels built for peak operational efficiency.",
-      icon: "LayoutDashboard",
-      tags: ["Data Viz", "ChartJS", "RBAC UI"],
-      stats: "Used by 50k+ DAU",
+        "Developing reliable web application logic, APIs, authentication, and data management using structured backend technologies.",
+      icon: "Server",
+      tags: ["PHP", "Laravel", "Blade", "REST API"],
+      stats: "Web Application Logic",
     },
+
     {
-      id: "mobile-apps",
-      title: "Mobile App Experience",
+      id: "database",
+      title: "Database Management",
       description:
-        "Native-feel cross-platform mobile apps focused on seamless micro-interactions and tactile responsiveness.",
-      icon: "Smartphone",
-      tags: ["React Native", "iOS / Android", "Gestures"],
-      stats: "4.9/5 App Store Avg",
+        "Designing and managing structured databases to support web applications, data relationships, and efficient information management.",
+      icon: "Database",
+      tags: ["MySQL", "SQLite", "PostgreSQL", "Database Design", "CRUD"],
+      stats: "Structured Data",
+    },
+
+    {
+      id: "fullstack",
+      title: "Full-Stack Development",
+      description:
+        "Connecting frontend interfaces, backend logic, and databases into complete web applications designed around real-world requirements.",
+      icon: "Layers3",
+      tags: ["React", "Laravel", "MySQL"],
+      stats: "End-to-End Development",
     },
   ],
 
@@ -99,104 +100,117 @@ export const portfolioData = {
   ],
 
   whyHireMe: {
-    title: "Why Partner With Me?",
+    title: "Why Work With Me?",
+
     subtitle:
-      "A balanced blend of aesthetics, architectural engineering, and business ROI.",
+      "I focus on building clean, practical, and thoughtful web experiences from interface to implementation.",
+
     points: [
       {
-        title: "Zero-Handoff Friction",
+        title: "Design & Code",
         description:
-          "As a designer who codes, I eliminate endless back-and-forth between design and engineering teams.",
-        icon: "Zap",
+          "I can work across both the visual and technical side of a project, helping turn ideas and designs into functional interfaces.",
+        icon: "Code2",
       },
       {
-        title: "Pixel-Perfect & Accessible",
+        title: "Clean & Responsive",
         description:
-          "Every component conforms to WCAG 2.1 AA standards with fluid responsiveness across all screens.",
-        icon: "ShieldCheck",
+          "I build interfaces that stay clean and usable across different screen sizes, with attention to layout, spacing, and interaction.",
+        icon: "Monitor",
       },
       {
-        title: "Conversion-Focused UI",
+        title: "Practical Solutions",
         description:
-          "Visual aesthetics built to drive real key performance indicators, user retention, and revenue growth.",
+          "I focus on solving the actual needs of a project rather than adding unnecessary complexity to the implementation.",
+        icon: "Lightbulb",
+      },
+      {
+        title: "Always Improving",
+        description:
+          "I'm continuously learning new tools and improving my approach through real projects, experimentation, and hands-on development.",
         icon: "TrendingUp",
-      },
-      {
-        title: "Production-Grade Velocity",
-        description:
-          "Clean, maintainable, self-documenting code built with modern stacks ready for CI/CD deployment.",
-        icon: "Cpu",
       },
     ],
   },
 
   portfolio: {
-    categories: ["All", "UI/UX", "Mobile App", "Web", "Dashboard"],
+    categories: ["All", "Web", "Frontend", "Backend"],
+
     projects: [
       {
         id: 1,
-        title: "Apex Finance Analytics",
-        category: "Dashboard",
-        tagline: "Real-time AI portfolio tracker and liquidity monitor",
-        image:
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-        tags: ["React", "Tailwind CSS", "Data Viz", "Framer Motion"],
-        link: "https://github.com",
+        title: "HiPlaty",
+        category: "Web",
+        tagline:
+          "Interactive Learning Management System combining React, role-based experiences, and a hybrid Google Sheets architecture.",
+        tags: ["React 19", "Tailwind CSS", "Vite", "Google Apps Script"],
+        link: "https://github.com/Syechan112/HiPlaty",
         featured: true,
       },
+
       {
         id: 2,
-        title: "Pulse Health & Fitness App",
-        category: "Mobile App",
-        tagline: "Haptic workout tracker with personalized biometric metrics",
-        image:
-          "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&w=800&q=80",
-        tags: ["Mobile UX", "Figma", "Micro-interactions"],
-        link: "https://github.com",
+        title: "Nusa Code",
+        category: "Web",
+        tagline:
+          "Digital service platform built for local businesses, focused on clear service information and easy consultation access.",
+        tags: ["Vue.js", "Tailwind CSS"],
+        link: "https://github.com/Syechan112/Nusa-Code",
         featured: true,
       },
+
       {
         id: 3,
-        title: "Lumina AI Creative Suite",
-        category: "Web",
-        tagline: "High-converting SaaS landing and generative canvas",
-        image:
-          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-        tags: ["Next.js", "Design System", "Dark UI"],
-        link: "https://github.com",
-        featured: true,
+        title: "E-Procurement API",
+        category: "Backend",
+        tagline:
+          "Laravel REST API for vendor management, product catalogs, authentication, and relational data.",
+        tags: ["Laravel", "PHP", "MySQL", "Sanctum"],
+        link: "https://github.com/Syechan112/vendor-procurement-system",
+        featured: false,
       },
+
       {
         id: 4,
-        title: "Verve E-Commerce Rebrand",
-        category: "UI/UX",
-        tagline: "Luxury apparel commerce experience with 3D product view",
-        image:
-          "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
-        tags: ["E-Commerce", "UX Research", "Figma"],
-        link: "https://github.com",
+        title: "Sistem Absensi Sekolah",
+        category: "Web",
+        tagline:
+          "Web application for student attendance, reporting, and role-based school management.",
+        tags: ["Laravel", "PHP", "Blade", "Alpine.js", "Tailwind CSS"],
+        link: "https://github.com/Syechan112/Absensi-Sekolah",
         featured: false,
       },
+
       {
         id: 5,
-        title: "CloudFlow Ops Dashboard",
-        category: "Dashboard",
-        tagline: "Multi-cluster Kubernetes management interface",
-        image:
-          "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80",
-        tags: ["Enterprise UI", "React 19", "Tailwind"],
-        link: "https://github.com",
+        title: "Aroma Kopi",
+        category: "Frontend",
+        tagline:
+          "Responsive coffee shop website with an interactive menu and simple browsing experience.",
+        tags: ["HTML", "JavaScript", "CSS", "Tailwind CSS"],
+        link: "https://github.com/Syechan112/coffe-shop",
         featured: false,
       },
+
       {
         id: 6,
-        title: "Nova Neobank Mobile Experience",
-        category: "Mobile App",
-        tagline: "Gen-Z banking application with instant peer payments",
-        image:
-          "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
-        tags: ["Fintech", "Mobile App", "Interaction Design"],
-        link: "https://github.com",
+        title: "Blog Post Laravel",
+        category: "Web",
+        tagline:
+          "Dynamic blog platform with post management, categories, user authentication, and comments.",
+        tags: ["Laravel 11", "PHP", "Blade", "Alpine.js", "Tailwind CSS"],
+        link: "https://github.com/Syechan112/blog-post",
+        featured: false,
+      },
+
+      {
+        id: 7,
+        title: "Todo List Laravel",
+        category: "Web",
+        tagline:
+          "Simple task management app built around CRUD operations with a dynamic Laravel and Blade interface.",
+        tags: ["Laravel", "PHP", "Blade", "JavaScript"],
+        link: "https://github.com/Syechan112/todo-list",
         featured: false,
       },
     ],
@@ -271,4 +285,81 @@ export const portfolioData = {
         "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
     },
   ],
+  about: {
+    badge: "01 — About",
+    subBadge: "Profile / 2026",
+    number: "01",
+    headline:
+      "Building Functional Products with Hands-On Experience and Modern AI Tools.",
+    summary:
+      "I am a Junior Full-Stack Developer with a passion for building clean, functional web applications. While early in my career, I focus heavily on hands-on practice by developing real projects from scratch.\n\nI embrace modern developer tools, actively integrating AI into my workflow to accelerate problem-solving, streamline debugging, and write more efficient code. I am eager to contribute, open to feedback, and dedicated to continuously improving my software development skills.",
+    technicalStack: [
+      {
+        label: "Languages",
+        items: ["PHP", "JavaScript", "HTML", "CSS"],
+      },
+      {
+        label: "Frameworks & Libraries",
+        items: ["Laravel", "Vue Js", "React Js", "Tailwind CSS", "Alpine Js"],
+      },
+      {
+        label: "Databases",
+        items: ["SQLite", "MySQL", "PostgreSQL"],
+      },
+    ],
+    languages: ["PHP", "JavaScript", "HTML", "CSS"],
+    frameworks: ["Laravel", "Vue Js", "React Js", "Tailwind CSS"],
+    databases: ["SQLite", "MySQL", "PostgreSQL"],
+    background: {
+      tag: "Background",
+      title: "Experience,\nlearning &\nmilestones.",
+    },
+    education: [
+      {
+        title: "Software Engineering Major",
+        school: "SMKS BABUNNAJAH MENES",
+        period: "2022 — 2025",
+      },
+    ],
+    achievements: [
+      {
+        title: "Certified Competency — Software Engineering",
+        year: "2025",
+        link: "https://drive.google.com/file/d/1Avzsx__NQuF--1ZwJIzYHzx_4QbNLJXX/view?usp=drive_link",
+        description:
+          'Completed and passed the Vocational Competency Assessment with a "Highly Competent" grade by engineering a Discount Calculation Application. Key technical competencies demonstrated:',
+        details: [
+          "Implementing structured programming and data structures",
+          "Writing clean code following industry guidelines and best practices",
+          "Executing application debugging and system setup",
+        ],
+      },
+      {
+        title: "E-Commerce System with Telegram API Integration",
+        year: "2025",
+        link: "https://drive.google.com/drive/folders/1E0Yky14xWTY5J_LSJmUnenwAaNo5yrgT?usp=sharing",
+        description:
+          "Designed a web-based sales platform featuring automated transaction notifications delivered directly to mobile devices via the Telegram Bot API. Successfully presented a live application demo to representatives from the Regional Department of Education during a technology exhibition, earning official appreciation and support for the system's technical execution.",
+      },
+      {
+        title: "Responsive Web Developer",
+        year: "2025",
+        link: "https://drive.google.com/file/d/1r7dR5nlKWpOEL9ULmFTxUzSwlA9Ly9Pt/view?usp=drive_link",
+        description:
+          "Achieved global developer certification by dedicating 300+ hours to mastering core front-end technology principles. Built and delivered fully responsive, accessible, and interactive web interfaces optimized across mobile, tablet, and desktop devices, meeting strict automated code quality and validation benchmarks.",
+      },
+    ],
+    certifications: [
+      {
+        title: "Software Engineering Competency Certificate — UKK",
+        issuer: "SMKS BABUNNAJAH MENES",
+        year: "2025",
+      },
+      {
+        title: "Responsive Web Design Certification",
+        issuer: "freeCodeCamp",
+        year: "2025",
+      },
+    ],
+  },
 };

@@ -1,57 +1,112 @@
-import { motion } from 'framer-motion';
-import { portfolioData } from '../data/portfolioData';
+import { motion } from "framer-motion";
+import { portfolioData } from "../data/portfolioData";
 
 const Services = ({ darkMode = false }) => {
   return (
-    <section id="services" className={`py-28 px-6 border-t scroll-mt-28 ${darkMode ? 'bg-neutral-950 border-white/10' : 'bg-white border-black'}`}>
+    <section
+      id="services"
+      className={`py-28 px-6 border-t scroll-mt-28 ${
+        darkMode ? "bg-neutral-950 border-white/10" : "bg-white border-black"
+      }`}>
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-20">
-          <div className="md:col-span-4">
-            <h2 className={`text-sm font-bold uppercase tracking-widest ${darkMode ? 'text-white' : 'text-black'}`}>
-              Services
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+          <div>
+            <span
+              className={`text-xs font-mono uppercase tracking-[0.3em] ${
+                darkMode ? "text-neutral-500" : "text-neutral-400"
+              }`}>
+              02 — Services
+            </span>
+
+            <h2
+              className={`mt-5 text-5xl md:text-7xl font-bold tracking-tighter leading-none ${
+                darkMode ? "text-white" : "text-black"
+              }`}>
+              What I do.
             </h2>
           </div>
-          <div className="md:col-span-8">
-            <h3 className={`text-4xl md:text-6xl font-bold tracking-tighter leading-tight ${darkMode ? 'text-white' : 'text-black'}`}>
-              Crafting digital products with a focus on usability and technical excellence.
-            </h3>
-          </div>
+
+          <p
+            className={`max-w-md text-sm leading-relaxed ${
+              darkMode ? "text-neutral-400" : "text-neutral-600"
+            }`}>
+            Crafting digital products with a focus on usability, thoughtful
+            interaction, and technical excellence.
+          </p>
         </div>
 
-        <div className={`grid grid-cols-1 md:grid-cols-2 gap-px ${darkMode ? 'bg-white/10' : 'bg-black'}`}>
+        <div className="border-t border-current">
           {portfolioData.services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className={`flex flex-col justify-between p-12 transition-colors ${darkMode ? 'bg-neutral-900 hover:bg-neutral-800' : 'bg-white hover:bg-neutral-50'}`}
-            >
-              <div>
-                <span className={`text-xs font-mono uppercase tracking-widest mb-6 block ${darkMode ? 'text-neutral-400' : 'text-neutral-500'}`}>
-                  0{service.id}
-                </span>
-                <h4 className={`text-2xl font-bold mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-black'}`}>
-                  {service.title}
-                </h4>
-                <p className={`leading-relaxed mb-8 ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
-                  {service.description}
-                </p>
+              viewport={{ once: false, margin: "-80px" }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.08,
+              }}
+              className={`group relative border-b transition-all duration-500 ${
+                darkMode
+                  ? "border-white/10 hover:bg-white/[0.03]"
+                  : "border-black/10 hover:bg-black/[0.025]"
+              }`}>
+              <div className="grid grid-cols-12 gap-4 md:gap-8 py-10 md:py-14 items-start">
+                <div className="col-span-12 md:col-span-5">
+                  <h3
+                    className={`text-3xl md:text-4xl font-bold tracking-tighter transition-transform duration-500 group-hover:translate-x-2 ${
+                      darkMode ? "text-white" : "text-black"
+                    }`}>
+                    {service.title}
+                  </h3>
+                </div>
+
+                <div className="col-span-12 md:col-span-6">
+                  <p
+                    className={`max-w-lg leading-relaxed ${
+                      darkMode ? "text-neutral-400" : "text-neutral-600"
+                    }`}>
+                    {service.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mt-6">
+                    {service.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 border ${
+                          darkMode
+                            ? "text-neutral-300 border-white/15"
+                            : "text-neutral-700 border-black/15"
+                        }`}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div
+                  className={`hidden md:flex col-span-1 justify-end text-2xl transition-all duration-500 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 ${
+                    darkMode ? "text-white" : "text-black"
+                  }`}>
+                  ↗
+                </div>
               </div>
 
-              <div className="flex flex-wrap gap-2">
-                {service.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className={`text-xs font-mono uppercase border px-3 py-1 ${darkMode ? 'text-white border-white/20' : 'text-black border-neutral-200'}`}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <div
+                className={`absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-700 ${
+                  darkMode ? "bg-white" : "bg-black"
+                }`}
+              />
             </motion.div>
           ))}
+        </div>
+
+        <div
+          className={`flex justify-between mt-8 text-[10px] font-mono uppercase tracking-widest ${
+            darkMode ? "text-neutral-600" : "text-neutral-400"
+          }`}>
+          <span>Selected capabilities</span>
+          <span>{portfolioData.services.length} services</span>
         </div>
       </div>
     </section>

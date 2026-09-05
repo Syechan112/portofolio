@@ -1,18 +1,16 @@
-import { Sparkles } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const TickerBanner = () => {
   const items = portfolioData.tickerItems;
 
   return (
-    <div className="relative w-full overflow-hidden bg-gradient-to-r from-red-600 to-red-500 py-4 text-white z-20">
-      <div className="flex w-max select-none animate-[marquee_24s_linear_infinite] will-change-transform">
+    <div className="relative w-full overflow-hidden py-6 border-b border-neutral-100 dark:border-white/10 z-20 group">
+      <div className="flex w-max select-none animate-[marquee_30s_linear_infinite] gap-12 will-change-transform group-hover:[animation-play-state:paused]">
         {items.concat(items).map((item, idx) => (
-          <div key={idx} className="flex items-center gap-8 px-6 whitespace-nowrap">
-            <span className="text-sm sm:text-base md:text-lg font-extrabold uppercase tracking-wider text-white">
+          <div key={idx} className="flex items-center px-4 transition-all duration-300 group-hover:blur-[2px] hover:!blur-none">
+            <span className="text-xl md:text-2xl font-black italic uppercase tracking-tighter text-neutral-900 dark:text-white transition-colors duration-300 cursor-pointer">
               {item}
             </span>
-            <Sparkles className="w-4 h-4 text-white/70 shrink-0" />
           </div>
         ))}
       </div>
@@ -21,3 +19,4 @@ const TickerBanner = () => {
 };
 
 export default TickerBanner;
+
