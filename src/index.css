@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  section {
+    scroll-margin-top: 120px;
+  }
+
+  @media (pointer: fine) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);

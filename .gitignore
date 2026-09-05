@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Opencode / Tools
+.oxlintrc.json
+.playwright-mcp/
+page.md

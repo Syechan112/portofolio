@@ -19,11 +19,10 @@ const Navbar = ({ darkMode, toggleTheme }) => {
   }, []);
 
   const navLinks = [
+    { name: 'About', hash: '#about' },
     { name: 'Services', hash: '#services' },
-    { name: 'Experience', hash: '#experience' },
     { name: 'Why Me', hash: '#why-me' },
     { name: 'Portfolio', hash: '#portfolio' },
-    { name: 'Testimonials', hash: '#testimonials' },
   ];
 
   const handleNavClick = (e, hash) => {
