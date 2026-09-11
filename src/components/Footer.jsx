@@ -100,6 +100,37 @@ const Footer = ({ darkMode }) => {
                   </a>
                 )}
 
+                {/* Instagram */}
+                {portfolioData.personal.social.instagram && (
+                  <a
+                    href={portfolioData.personal.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`group flex items-center justify-between py-2.5 text-sm border-b ${
+                      darkMode
+                        ? "border-white/10 text-neutral-400 hover:text-white"
+                        : "border-black/10 text-neutral-600 hover:text-black"
+                    } transition-colors`}>
+                    <span>Instagram</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-200" />
+                  </a>
+                )}
+
+                {/* LinkedIn */}
+                {portfolioData.personal.social.linkedin && (
+                  <a
+                    href={portfolioData.personal.social.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`group flex items-center justify-between py-2.5 text-sm border-b ${
+                      darkMode
+                        ? "border-white/10 text-neutral-400 hover:text-white"
+                        : "border-black/10 text-neutral-600 hover:text-black"
+                    } transition-colors`}>
+                    <span>LinkedIn</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-200" />
+                  </a>
+                )}
 
                 <a
                   href="https://wa.me/628979673149"

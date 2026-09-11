@@ -14,7 +14,8 @@ export const portfolioData = {
     ],
     social: {
       github: "https://github.com/Syechan112",
-
+      linkedin: "https://www.linkedin.com/in/syehan-mochsin-althubaiti/",
+      instagram: "https://www.instagram.com/shynns_22/",
       email: "[EMAIL_ADDRESS]",
     },
   },
