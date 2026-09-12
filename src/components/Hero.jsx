@@ -76,8 +76,34 @@ const Hero = ({ darkMode = false }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-7xl xl:text-6xl font-bold tracking-tighter leading-[1]">
-            Building Modern Web Apps with Full-Stack &amp; AI Workflows.
+            className="text-5xl sm:text-7xl xl:text-6xl font-bold tracking-tighter leading-[1.08]">
+            Building Modern Web Apps with{" "}
+            <span className="relative inline-block my-1">
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{
+                  duration: 0.75,
+                  delay: 0.45,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                style={{ originX: 0 }}
+                className={`absolute inset-0 -mx-1 sm:-mx-1.5 px-1 sm:px-1.5 rounded-sm shadow-sm ${
+                  darkMode ? "bg-white" : "bg-black"
+                }`}
+              />
+              <motion.span
+                initial={{
+                  color: darkMode ? "#ffffff" : "#000000",
+                }}
+                animate={{
+                  color: darkMode ? "#000000" : "#ffffff",
+                }}
+                transition={{ duration: 0.35, delay: 0.6 }}
+                className="relative z-10 px-1 sm:px-1.5 select-all">
+                Full-Stack &amp; AI Workflows.
+              </motion.span>
+            </span>
           </motion.h1>
 
           <motion.p

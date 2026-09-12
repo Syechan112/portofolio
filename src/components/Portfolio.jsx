@@ -60,93 +60,109 @@ const Portfolio = ({ darkMode = false }) => {
           ))}
         </div>
 
-        <div>
-          {filteredProjects.map((project, index) => (
-            <motion.article
-              key={project.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{
-                duration: 0.55,
-                delay: index * 0.06,
-                ease: "easeOut",
-              }}
-              className={`group border-b ${
-                darkMode ? "border-white/10" : "border-black/10"
-              }`}>
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 py-10 md:py-12">
-                <div className="md:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-[minmax(300px,auto)] gap-6">
+          {filteredProjects.map((project, index) => {
+            const total = filteredProjects.length;
+            const getBento = () => {
+              if (total === 1) return "md:col-span-12";
+              if (total === 2) return "md:col-span-6";
+              if (total === 3 && index === 2) return "md:col-span-12";
+              const patterns = [
+                "md:col-span-8 md:min-h-[380px]",
+                "md:col-span-4 md:min-h-[380px]",
+                "md:col-span-4 md:min-h-[340px]",
+                "md:col-span-8 md:min-h-[340px]",
+                "md:col-span-6",
+                "md:col-span-6",
+              ];
+              if (index === total - 1 && index % 6 === 0 && total > 3)
+                return "md:col-span-12";
+              return patterns[index % patterns.length];
+            };
+            return (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  duration: 0.45,
+                  delay: index * 0.05,
+                  ease: "easeOut",
+                }}
+                className={`group relative flex flex-col justify-between p-6 md:p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${getBento()} ${
+                  darkMode
+                    ? "bg-neutral-900/50 border-white/10 hover:border-white/20 hover:shadow-black/40"
+                    : "bg-white border-black/10 hover:border-black/20 hover:shadow-neutral-200/60"
+                }`}>
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-6">
                   <span
-                    className={`text-xs font-mono ${
-                      darkMode ? "text-neutral-600" : "text-neutral-400"
-                    }`}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <div className="md:col-span-4">
-                  <h3
-                    className={`text-3xl md:text-4xl font-bold tracking-tighter leading-none transition-transform duration-300 group-hover:translate-x-1 ${
-                      darkMode ? "text-white" : "text-black"
-                    }`}>
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline flex items-center gap-2 inline-flex">
-                      {project.title}
-                      <span className="text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        ↗
-                      </span>
-                    </a>
-                  </h3>
-                </div>
-
-                <div className="md:col-span-5">
-                  <p
-                    className={`max-w-lg text-sm md:text-base leading-relaxed ${
-                      darkMode ? "text-neutral-400" : "text-neutral-600"
-                    }`}>
-                    {project.tagline}
-                  </p>
-
-                  <div className="flex flex-wrap gap-x-5 gap-y-2 mt-6">
-                    {project.tags.map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className={`text-xs font-mono ${
-                          darkMode ? "text-neutral-600" : "text-neutral-400"
-                        }`}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="md:col-span-2 md:text-right flex flex-col justify-between items-start md:items-end gap-2">
-                  <span
-                    className={`text-xs font-mono uppercase tracking-widest ${
-                      darkMode ? "text-neutral-600" : "text-neutral-400"
+                    className={`text-xs font-mono font-medium px-2.5 py-1 rounded-full border ${
+                      darkMode
+                        ? "text-neutral-400 border-white/10 bg-white/5"
+                        : "text-neutral-600 border-black/10 bg-black/5"
                     }`}>
                     {project.category}
                   </span>
+                </div>
 
+                <h3
+                  className={`text-2xl md:text-3xl font-bold tracking-tight mb-3 transition-colors ${
+                    darkMode
+                      ? "text-white group-hover:text-neutral-200"
+                      : "text-black group-hover:text-neutral-700"
+                  }`}>
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`text-xs font-mono underline underline-offset-4 ${
-                      darkMode
-                        ? "text-neutral-400 hover:text-white"
-                        : "text-neutral-600 hover:text-black"
-                    }`}>
-                    View Project ↗
+                    className="inline-flex items-center gap-1.5 focus:outline-none">
+                    {project.title}
+                    <span className="inline-block text-lg transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                      ↗
+                    </span>
                   </a>
-                </div>
+                </h3>
+
+                <p
+                  className={`text-sm md:text-base leading-relaxed mb-6 ${
+                    darkMode ? "text-neutral-400" : "text-neutral-600"
+                  }`}>
+                  {project.tagline}
+                </p>
               </div>
-            </motion.article>
-          ))}
+
+              <div className="pt-6 border-t border-inherit flex flex-wrap items-center justify-between gap-4 mt-auto">
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className={`text-xs font-mono px-2 py-0.5 rounded ${
+                        darkMode
+                          ? "bg-white/5 text-neutral-400"
+                          : "bg-black/5 text-neutral-600"
+                      }`}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-xs font-mono font-medium inline-flex items-center gap-1 ${
+                    darkMode
+                      ? "text-white hover:text-neutral-300"
+                      : "text-black hover:text-neutral-600"
+                  }`}>
+                  Explore ↗
+                </a>
+              </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

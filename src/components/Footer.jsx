@@ -147,13 +147,15 @@ const Footer = ({ darkMode }) => {
               </div>
 
               <a
-                href="mailto:syechanmochsinalthubaiti@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=syechanmochsinalthubaiti@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`inline-block mt-8 text-sm break-all border-b pb-1 transition-colors ${
                   darkMode
                     ? "text-neutral-400 border-white/20 hover:text-white hover:border-white"
                     : "text-neutral-600 border-black/20 hover:text-black hover:border-black"
                 }`}>
-                syechanmochsinalthubaiti@gmail.com
+                {portfolioData.personal.social.email}
               </a>
             </div>
           </div>

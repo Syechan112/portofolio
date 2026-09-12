@@ -16,7 +16,7 @@ export const portfolioData = {
       github: "https://github.com/Syechan112",
       linkedin: "https://www.linkedin.com/in/syehan-mochsin-althubaiti/",
       instagram: "https://www.instagram.com/shynns_22/",
-      email: "[EMAIL_ADDRESS]",
+      email: "syechanmochsinalthubaiti@gmail.com",
     },
   },
 
@@ -145,7 +145,7 @@ export const portfolioData = {
         tagline:
           "Interactive Learning Management System combining React, role-based experiences, and a hybrid Google Sheets architecture.",
         tags: ["React 19", "Tailwind CSS", "Vite", "Google Apps Script"],
-        link: "https://github.com/Syechan112/HiPlaty",
+        link: "https://hi-platy.vercel.app",
         featured: true,
       },
 
@@ -156,7 +156,7 @@ export const portfolioData = {
         tagline:
           "Digital service platform built for local businesses, focused on clear service information and easy consultation access.",
         tags: ["Vue.js", "Tailwind CSS"],
-        link: "https://github.com/Syechan112/Nusa-Code",
+        link: "https://nusa-code.vercel.app",
         featured: true,
       },
 

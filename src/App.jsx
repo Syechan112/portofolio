@@ -5,9 +5,9 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
+import Hero from './components/Hero';
 import { portfolioData } from './data/portfolioData';
 
-const Hero = lazy(() => import('./components/Hero'));
 const About = lazy(() => import('./components/About'));
 const TickerBanner = lazy(() => import('./components/TickerBanner'));
 const Services = lazy(() => import('./components/Services'));
@@ -19,17 +19,17 @@ const CTASection = lazy(() => import('./components/CTASection'));
 
 const Home = ({ darkMode }) => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="w-full flex flex-col">
-        <Hero darkMode={darkMode} />
+    <div className="w-full flex flex-col">
+      <Hero darkMode={darkMode} />
+      <Suspense fallback={<div className="min-h-[200px]" />}>
         <About darkMode={darkMode} />
         <TickerBanner />
         <Services darkMode={darkMode} />
         <WhyHireMe darkMode={darkMode} />
         <Portfolio darkMode={darkMode} />
         <CTASection darkMode={darkMode} />
-      </div>
-    </Suspense>
+      </Suspense>
+    </div>
   );
 };
 
@@ -45,18 +45,26 @@ function App() {
     if (!location.hash) return;
 
     const targetId = location.hash.replace('#', '');
-    const elem = document.getElementById(targetId);
+    let timeoutId;
 
-    if (elem) {
-      // Tahap 1: Instan ke target agar viewport pindah cepat
-      elem.scrollIntoView({ behavior: 'auto' });
+    const tryScroll = (attempts = 0) => {
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        const headerOffset = 70;
+        const elementPosition = elem.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: attempts === 0 ? 'auto' : 'smooth',
+        });
+      } else if (attempts < 6) {
+        timeoutId = setTimeout(() => tryScroll(attempts + 1), 120);
+      }
+    };
 
-      // Tahap 2: Smooth adjust setelah jeda singkat untuk sinkronisasi layout/animasi
-      setTimeout(() => {
-        elem.scrollIntoView({ behavior: 'smooth' });
-      }, 500);
-    }
-  }, [location]);
+    tryScroll();
+    return () => clearTimeout(timeoutId);
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     localStorage.setItem('theme', darkMode ? 'dark' : 'light');

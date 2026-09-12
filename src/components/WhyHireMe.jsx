@@ -1,117 +1,158 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useLayoutEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { portfolioData } from "../data/portfolioData";
-
-function AnimatedNumber({ value, suffix = "" }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const duration = 1500;
-    const stepTime = 20;
-    const steps = duration / stepTime;
-    const increment = value / steps;
-
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, stepTime);
-
-    return () => clearInterval(timer);
-  }, [isInView, value]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
 
 const WhyHireMe = ({ darkMode = false }) => {
   const { whyHireMe } = portfolioData;
 
+  const targetRef = useRef(null);
+  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+
+  const [maxScroll, setMaxScroll] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"],
+  });
+
+  /*
+   * Hitung jarak horizontal sebenarnya.
+   * Jadi tidak bergantung pada jumlah card atau ukuran layar.
+   */
+  useLayoutEffect(() => {
+    const calculateScroll = () => {
+      if (!viewportRef.current || !trackRef.current) return;
+
+      const viewportWidth = viewportRef.current.offsetWidth;
+      const trackWidth = trackRef.current.scrollWidth;
+
+      setMaxScroll(Math.max(trackWidth - viewportWidth, 0));
+    };
+
+    calculateScroll();
+
+    const resizeObserver = new ResizeObserver(calculateScroll);
+
+    if (viewportRef.current) {
+      resizeObserver.observe(viewportRef.current);
+    }
+
+    if (trackRef.current) {
+      resizeObserver.observe(trackRef.current);
+    }
+
+    window.addEventListener("resize", calculateScroll);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", calculateScroll);
+    };
+  }, [whyHireMe.points]);
+
+  /*
+   * Geser tepat sampai elemen terakhir berada
+   * di dalam viewport.
+   */
+  const x = useTransform(scrollYProgress, [0, 1], [0, -maxScroll]);
+
+  const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
     <section
       id="why-me"
-      className={`relative py-28 px-6 border-t scroll-mt-28 ${
+      ref={targetRef}
+      className={`relative h-[360vh] md:h-[320vh] border-t ${
         darkMode
           ? "bg-neutral-950 border-white/10"
-          : "bg-neutral-100 border-black"
+          : "bg-[#f5f5f3] border-black/10"
       }`}>
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
-          <div className="lg:col-span-4">
-            <span
-              className={`text-xs font-mono uppercase tracking-widest ${
-                darkMode ? "text-neutral-500" : "text-neutral-500"
-              }`}>
-              03 - Why Me
-            </span>
-          </div>
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+        <div className="mx-auto mb-12 w-full max-w-[1400px] px-6 md:mb-16 md:px-12">
+          <div className="grid grid-cols-1 gap-7 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-3">
+              <div className="flex items-center gap-3">
+                <span
+                  className={`h-px w-7 ${
+                    darkMode ? "bg-white/30" : "bg-black/30"
+                  }`}
+                />
 
-          <div className="lg:col-span-8">
-            <h2
-              className={`text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] ${
-                darkMode ? "text-white" : "text-black"
-              }`}>
-              {whyHireMe.title}
-            </h2>
+                <span
+                  className={`font-mono text-[10px] uppercase tracking-[0.2em] ${
+                    darkMode ? "text-neutral-500" : "text-neutral-500"
+                  }`}>
+                  03 — Why Me
+                </span>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8 lg:col-start-5">
+              <h2
+                className={`max-w-4xl text-4xl font-semibold leading-[0.92] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-7xl ${
+                  darkMode ? "text-white" : "text-black"
+                }`}>
+                {whyHireMe.title}
+              </h2>
+
+              <p
+                className={`mt-6 max-w-md text-sm leading-6 ${
+                  darkMode ? "text-neutral-500" : "text-neutral-500"
+                }`}>
+                A few things that define how I approach work, solve problems,
+                and build digital products.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          {whyHireMe.points.map((point, idx) => {
-            const layouts = [
-              "md:col-span-7",
-              "md:col-span-5",
-              "md:col-span-5",
-              "md:col-span-7",
-            ];
-
-            return (
-              <motion.div
+        <div ref={viewportRef} className="relative w-full overflow-hidden">
+          <motion.div
+            ref={trackRef}
+            style={{ x }}
+            className="flex w-max gap-4 px-6 md:gap-6 md:px-12">
+            {whyHireMe.points.map((point, idx) => (
+              <article
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: idx * 0.08,
-                  ease: "easeOut",
-                }}
-                viewport={{ once: true, margin: "-60px" }}
-                className={`${layouts[idx % layouts.length]} group`}>
+                className="group w-[82vw] max-w-[460px] flex-shrink-0">
                 <div
-                  className={`relative min-h-[320px] md:min-h-[360px] p-8 md:p-12 flex flex-col justify-between overflow-hidden transition-colors duration-300 ${
+                  className={`relative flex h-[360px] flex-col justify-between overflow-hidden border transition-all duration-500 sm:h-[390px] md:h-[430px] ${
                     darkMode
-                      ? "bg-neutral-900 hover:bg-neutral-800"
-                      : "bg-white hover:bg-neutral-50"
+                      ? "border-white/10 bg-neutral-900 hover:border-white/20"
+                      : "border-black/10 bg-white hover:border-black/20"
                   }`}>
-                  <span
-                    className={`text-xs font-mono ${
-                      darkMode ? "text-neutral-600" : "text-neutral-400"
-                    }`}>
-                    0{idx + 1}
-                  </span>
+                  <div
+                    className={`pointer-events-none absolute -right-5 -top-12 select-none text-[150px] font-bold leading-none tracking-[-0.1em] transition-transform duration-700 sm:text-[180px] ${
+                      darkMode ? "text-white/[0.035]" : "text-black/[0.045]"
+                    } group-hover:-translate-y-3`}>
+                    {String(idx + 1).padStart(2, "0")}
+                  </div>
 
-                  <div className="max-w-xl">
+                  <div className="relative z-10 flex items-center justify-between p-6 sm:p-7 md:p-9">
+                    <span
+                      className={`font-mono text-[10px] uppercase tracking-[0.2em] ${
+                        darkMode ? "text-neutral-500" : "text-neutral-400"
+                      }`}>
+                      0{idx + 1}
+                    </span>
+
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full transition-transform duration-500 group-hover:scale-[2] ${
+                        darkMode ? "bg-white/40" : "bg-black/30"
+                      }`}
+                    />
+                  </div>
+
+                  <div className="relative z-10 p-6 sm:p-7 md:p-9">
                     <h3
-                      className={`text-3xl md:text-4xl font-bold tracking-tighter leading-tight mb-5 ${
+                      className={`mb-4 max-w-[390px] text-2xl font-semibold leading-[1] tracking-[-0.04em] md:text-3xl ${
                         darkMode ? "text-white" : "text-black"
                       }`}>
                       {point.title}
                     </h3>
 
                     <p
-                      className={`text-sm md:text-base leading-relaxed max-w-lg ${
+                      className={`max-w-[390px] text-sm leading-6 md:text-[15px] md:leading-7 ${
                         darkMode ? "text-neutral-400" : "text-neutral-600"
                       }`}>
                       {point.description}
@@ -119,14 +160,59 @@ const WhyHireMe = ({ darkMode = false }) => {
                   </div>
 
                   <div
-                    className={`absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-500 ${
-                      darkMode ? "bg-white/40" : "bg-black/40"
+                    className={`relative z-10 h-px w-full origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100 ${
+                      darkMode ? "bg-white/40" : "bg-black/30"
                     }`}
                   />
                 </div>
-              </motion.div>
-            );
-          })}
+              </article>
+            ))}
+
+            <article className="flex w-[82vw] max-w-[650px] flex-shrink-0 items-center">
+              <div className="px-2 sm:px-6 md:px-8">
+                <span
+                  className={`mb-5 block font-mono text-[10px] uppercase tracking-[0.2em] ${
+                    darkMode ? "text-neutral-600" : "text-neutral-400"
+                  }`}>
+                  04 — What's next
+                </span>
+
+                <h3
+                  className={`text-4xl font-semibold leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-7xl ${
+                    darkMode ? "text-white" : "text-black"
+                  }`}>
+                  And this is only
+                  <br />
+                  the beginning.
+                </h3>
+
+                <div
+                  className={`mt-7 h-px w-16 ${
+                    darkMode ? "bg-white/30" : "bg-black/30"
+                  }`}
+                />
+              </div>
+            </article>
+          </motion.div>
+
+          <div className="mx-6 mt-8 flex items-center gap-4 md:mx-12 md:mt-10">
+            <div
+              className={`h-px flex-1 ${
+                darkMode ? "bg-white/10" : "bg-black/10"
+              }`}>
+              <motion.div
+                style={{ width: progress }}
+                className={`h-full ${darkMode ? "bg-white/40" : "bg-black/40"}`}
+              />
+            </div>
+
+            <span
+              className={`font-mono text-[9px] tracking-[0.2em] ${
+                darkMode ? "text-neutral-600" : "text-neutral-400"
+              }`}>
+              SCROLL
+            </span>
+          </div>
         </div>
       </div>
     </section>
