@@ -1,207 +1,258 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Send } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Copy, Check, Mail, MessageSquare } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
+import { useLanguage } from "../context/LanguageContext";
 
 const CTASection = ({ darkMode = false }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [message, setMessage] = useState("");
+  const { lang } = useLanguage();
+  const [copied, setCopied] = useState(false);
+  const { personal, cta } = portfolioData;
 
-  const handleWhatsAppSend = (e) => {
+  const isId = lang === "id";
+
+  const badgeText = cta.badge[lang] || cta.badge.en;
+  const headlineText = cta.headline[lang] || cta.headline.en;
+  const subtextText = cta.subtext[lang] || cta.subtext.en;
+
+  const handleCopyEmail = (e) => {
     e.preventDefault();
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/628979673149?text=${encodedMessage}`;
-    window.open(whatsappUrl, "_blank");
-    setIsModalOpen(false);
-    setMessage("");
+    e.stopPropagation();
+    navigator.clipboard.writeText(personal.social.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
+
+  const whatsappMessage = encodeURIComponent(
+    isId
+      ? "Halo Syehan, saya tertarik untuk mendiskusikan proyek web bersama Anda."
+      : "Hi Syehan, I would like to discuss a web project with you."
+  );
+  const whatsappUrl = `https://wa.me/628979673149?text=${whatsappMessage}`;
 
   return (
     <section
       id="contact"
-      className={`relative py-32 md:py-40 px-6 border-t scroll-mt-28 overflow-hidden ${
+      className={`py-32 px-6 border-t scroll-mt-28 transition-colors duration-300 font-sans ${
         darkMode ? "bg-neutral-950 border-white/10" : "bg-white border-black"
       }`}>
       <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8">
-          <div className="lg:col-span-3">
-            <div className="flex items-center gap-3">
-              <span
-                className={`text-xs font-mono uppercase tracking-[0.3em] ${
-                  darkMode ? "text-neutral-500" : "text-neutral-400"
-                }`}>
-                05 — Contact
-              </span>
-            </div>
-          </div>
-
-          <div className="lg:col-span-9">
-            <div className="max-w-5xl">
-              <h2
-                className={`text-5xl sm:text-6xl md:text-8xl font-bold tracking-[-0.06em] leading-[0.88] ${
-                  darkMode ? "text-white" : "text-black"
-                }`}>
-                Have a project
-                <br />
-                in mind?
-              </h2>
-
-              <p
-                className={`mt-10 max-w-xl text-base md:text-lg leading-relaxed ${
-                  darkMode ? "text-neutral-400" : "text-neutral-600"
-                }`}>
-                Open to projects, collaborations, and useful builds.
-              </p>
-
-              <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a
-                  href="mailto:syechanmochsinalthubaiti@gmail.com"
-                  className={`group relative min-h-[150px] p-7 border transition-colors duration-300 ${
-                    darkMode
-                      ? "border-white/10 hover:border-white/30 bg-neutral-900/40"
-                      : "border-black/10 hover:border-black/30 bg-neutral-50"
-                  }`}>
-                  <div className="flex items-start justify-between">
-                    <span
-                      className={`text-xs font-mono uppercase tracking-widest ${
-                        darkMode ? "text-neutral-600" : "text-neutral-400"
-                      }`}>
-                      Email
-                    </span>
-
-                    <span
-                      className={`text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 ${
-                        darkMode ? "text-neutral-400" : "text-neutral-500"
-                      }`}>
-                      ↗
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-7 left-7 right-7">
-                    <span
-                      className={`text-base md:text-lg font-medium break-all ${
-                        darkMode ? "text-white" : "text-black"
-                      }`}>
-                      syechanmochsinalthubaiti@gmail.com
-                    </span>
-                  </div>
-                </a>
-
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className={`group relative min-h-[150px] p-7 border transition-colors duration-300 ${
-                    darkMode
-                      ? "border-white/10 hover:border-white/30 bg-neutral-900/40"
-                      : "border-black/10 hover:border-black/30 bg-neutral-50"
-                  }`}>
-                  <div className="flex items-start justify-between">
-                    <span
-                      className={`text-xs font-mono uppercase tracking-widest ${
-                        darkMode ? "text-neutral-600" : "text-neutral-400"
-                      }`}>
-                      WhatsApp
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-7 left-7">
-                    <span
-                      className={`text-xl md:text-2xl font-bold tracking-tight ${
-                        darkMode ? "text-white" : "text-black"
-                      }`}>
-                      Say what you need
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className={`mt-24 pt-5 border-t flex flex-col md:flex-row md:items-center md:justify-between gap-3 ${
-            darkMode ? "border-white/10" : "border-black/10"
-          }`}>
-          <span
-            className={`text-xs font-mono uppercase tracking-widest ${
-              darkMode ? "text-neutral-600" : "text-neutral-400"
-            }`}>
-            Build something useful.
-          </span>
-
-          <span
-            className={`text-xs font-mono ${
-              darkMode ? "text-neutral-700" : "text-neutral-400"
-            }`}>
-            © {new Date().getFullYear()}
-          </span>
-        </div>
-      </div>
-
-      {/* WhatsApp Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsModalOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            />
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className={`relative w-full max-w-lg p-6 border shadow-xl ${
-                darkMode ? "bg-neutral-900 border-white/10" : "bg-white border-black"
+        {/* Header Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-20">
+          <div className="md:col-span-4">
+            <span
+              className={`text-xs uppercase tracking-wider font-semibold ${
+                darkMode ? "text-neutral-500" : "text-neutral-400"
               }`}>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 p-2 hover:opacity-70 transition-opacity">
-                <X className="w-5 h-5" />
-              </button>
+              {badgeText}
+            </span>
+          </div>
 
-              <form onSubmit={handleWhatsAppSend} className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-bold tracking-tight">Send via WhatsApp</h3>
-                  <p className={`mt-2 text-xs font-mono ${darkMode ? "text-neutral-500" : "text-neutral-400"}`}>
-                    To +62 897-9673-149
-                  </p>
+          <div className="md:col-span-8">
+            <h2
+              className={`text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] whitespace-pre-line ${
+                darkMode ? "text-white" : "text-black"
+              }`}>
+              {headlineText}
+            </h2>
+
+            <p
+              className={`mt-8 max-w-xl text-base md:text-lg leading-relaxed ${
+                darkMode ? "text-neutral-400" : "text-neutral-600"
+              }`}>
+              {subtextText}
+            </p>
+          </div>
+        </div>
+
+        {/* Contact Bento Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Email Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className={`group flex flex-col justify-between p-8 md:p-10 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+              darkMode
+                ? "bg-neutral-900/50 border-white/10 hover:border-white/20 hover:shadow-black/40"
+                : "bg-white border-black/10 hover:border-black/20 hover:shadow-neutral-200/60"
+            }`}>
+            <div>
+              <div className="flex items-center justify-between gap-4 mb-8">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center border ${
+                      darkMode
+                        ? "border-white/10 bg-white/5 text-white"
+                        : "border-black/10 bg-black/5 text-black"
+                    }`}>
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <span
+                    className={`text-xs uppercase tracking-wider font-semibold ${
+                      darkMode ? "text-neutral-400" : "text-neutral-600"
+                    }`}>
+                    Email
+                  </span>
                 </div>
 
-                <textarea
-                  autoFocus
-                  required
-                  rows={3}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Your message..."
-                  className={`w-full p-4 bg-transparent border focus:outline-none transition-colors text-sm ${
-                    darkMode 
-                      ? "border-white/10 focus:border-white/30 placeholder:text-neutral-700" 
-                      : "border-black/10 focus:border-black/30 placeholder:text-neutral-400"
-                  }`}
-                />
-
                 <button
-                  type="submit"
-                  className={`w-full py-3 flex items-center justify-center gap-2 font-medium text-sm transition-all ${
-                    darkMode
-                      ? "bg-white text-black hover:bg-neutral-200"
-                      : "bg-black text-white hover:bg-neutral-800"
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                    copied
+                      ? darkMode
+                        ? "border-white bg-white text-black font-semibold"
+                        : "border-black bg-black text-white font-semibold"
+                      : darkMode
+                        ? "border-white/15 text-neutral-300 hover:text-white hover:border-white/30 bg-white/5"
+                        : "border-black/15 text-neutral-600 hover:text-black hover:border-black/30 bg-black/5"
                   }`}>
-                  <span>Send</span>
-                  <Send className="w-4 h-4" />
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" />
+                      <span>{isId ? "Tersalin" : "Copied"}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>{isId ? "Salin" : "Copy"}</span>
+                    </>
+                  )}
                 </button>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              </div>
+
+              <h3
+                className={`text-2xl sm:text-3xl font-bold tracking-tight mb-3 break-all ${
+                  darkMode ? "text-white" : "text-black"
+                }`}>
+                {personal.social.email}
+              </h3>
+
+              <p
+                className={`text-sm md:text-base leading-relaxed ${
+                  darkMode ? "text-neutral-400" : "text-neutral-600"
+                }`}>
+                {isId
+                  ? "Kirim pesan melalui email untuk pertanyaan mendalam, tawaran kerjasama, atau lingkup proyek."
+                  : "Send an email directly for in-depth inquiries, project scopes, or collaboration opportunities."}
+              </p>
+            </div>
+
+            <div className="pt-8 mt-8 border-t border-inherit flex items-center justify-between">
+              <span
+                className={`text-xs font-medium ${
+                  darkMode ? "text-neutral-500" : "text-neutral-400"
+                }`}>
+                {isId ? "Respon dalam 24 jam" : "Response within 24h"}
+              </span>
+
+              <a
+                href={`mailto:${personal.social.email}`}
+                className={`text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-1 transition-transform group-hover:translate-x-1 ${
+                  darkMode
+                    ? "text-white hover:text-neutral-300"
+                    : "text-black hover:text-neutral-600"
+                }`}>
+                <span>{isId ? "Buka Email" : "Send Email"}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* WhatsApp Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className={`group flex flex-col justify-between p-8 md:p-10 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+              darkMode
+                ? "bg-neutral-900/50 border-white/10 hover:border-white/20 hover:shadow-black/40"
+                : "bg-white border-black/10 hover:border-black/20 hover:shadow-neutral-200/60"
+            }`}>
+            <div>
+              <div className="flex items-center justify-between gap-4 mb-8">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center border ${
+                      darkMode
+                        ? "border-white/10 bg-white/5 text-white"
+                        : "border-black/10 bg-black/5 text-black"
+                    }`}>
+                    <MessageSquare className="w-5 h-5" />
+                  </div>
+                  <span
+                    className={`text-xs uppercase tracking-wider font-semibold ${
+                      darkMode ? "text-neutral-400" : "text-neutral-600"
+                    }`}>
+                    WhatsApp
+                  </span>
+                </div>
+
+                <span
+                  className={`text-xs font-medium px-3 py-1 rounded-full border ${
+                    darkMode
+                      ? "border-white/10 text-neutral-300 bg-white/5"
+                      : "border-black/10 text-neutral-600 bg-black/5"
+                  }`}>
+                  {isId ? "Chat Langsung" : "Direct Chat"}
+                </span>
+              </div>
+
+              <h3
+                className={`text-2xl sm:text-3xl font-bold tracking-tight mb-3 ${
+                  darkMode ? "text-white" : "text-black"
+                }`}>
+                +62 897-9673-149
+              </h3>
+
+              <p
+                className={`text-sm md:text-base leading-relaxed ${
+                  darkMode ? "text-neutral-400" : "text-neutral-600"
+                }`}>
+                {isId
+                  ? "Hubungi langsung melalui WhatsApp untuk diskusi singkat, respon lebih cepat, atau pertanyaan awal."
+                  : "Reach out via WhatsApp for fast communication, quick questions, or introductory discussions."}
+              </p>
+            </div>
+
+            <div className="pt-8 mt-8 border-t border-inherit flex items-center justify-between">
+              <span
+                className={`text-xs font-medium ${
+                  darkMode ? "text-neutral-500" : "text-neutral-400"
+                }`}>
+                {isId ? "Tersedia untuk chat" : "Available for chat"}
+              </span>
+
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-1 transition-transform group-hover:translate-x-1 ${
+                  darkMode
+                    ? "text-white hover:text-neutral-300"
+                    : "text-black hover:text-neutral-600"
+                }`}>
+                <span>{isId ? "Mulai Chat" : "Start Chat"}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom Section Footer */}
+        <div
+          className={`mt-20 pt-6 border-t flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-medium ${
+            darkMode ? "border-white/10 text-neutral-500" : "border-black/10 text-neutral-500"
+          }`}>
+          <span className="uppercase tracking-wider">{personal.name}</span>
+          <span>{isId ? "Jakarta, Indonesia / Remote Seluruh Dunia" : "Jakarta, Indonesia / Remote Worldwide"}</span>
+        </div>
+      </div>
     </section>
   );
 };
 
 export default CTASection;
-

@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, MoonStar, SunMedium } from 'lucide-react';
+import { Menu, X, MoonStar, SunMedium, Globe } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = ({ darkMode, toggleTheme }) => {
+  const { lang, setLang } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState('');
@@ -93,12 +95,10 @@ const Navbar = ({ darkMode, toggleTheme }) => {
     };
   }, [location.pathname]);
 
-  const navLinks = [
-    { name: 'About', hash: '#about' },
-    { name: 'Services', hash: '#services' },
-    { name: 'Why Me', hash: '#why-me' },
-    { name: 'Portfolio', hash: '#portfolio' },
-  ];
+  const navLinks = portfolioData.nav.links.map((link) => ({
+    name: link.name[lang] || link.name.en,
+    hash: link.hash,
+  }));
 
   const scrollToElement = useCallback((targetId) => {
     const elem = document.getElementById(targetId);
@@ -175,7 +175,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
             const isActive = activeId === id;
             return (
               <a
-                key={link.name}
+                key={link.hash}
                 href={`/${link.hash}`}
                 onClick={(e) => handleNavClick(e, link.hash)}
                 className={`relative text-sm font-bold uppercase tracking-widest transition-colors cursor-pointer py-1 ${
@@ -205,10 +205,54 @@ const Navbar = ({ darkMode, toggleTheme }) => {
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-3">
+          {/* Language Switcher */}
+          <div
+            className={`inline-flex items-center p-0.5 border rounded-full text-xs font-mono font-bold tracking-wider transition-colors ${
+              darkMode
+                ? 'border-white/15 bg-neutral-900/80 text-white'
+                : 'border-black/15 bg-neutral-100/90 text-black'
+            }`}
+            role="group"
+            aria-label="Language Switcher"
+          >
+            <button
+              type="button"
+              onClick={() => setLang('id')}
+              className={`px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                lang === 'id'
+                  ? darkMode
+                    ? 'bg-white text-black font-extrabold shadow-sm'
+                    : 'bg-black text-white font-extrabold shadow-sm'
+                  : darkMode
+                    ? 'text-neutral-400 hover:text-white'
+                    : 'text-neutral-500 hover:text-black'
+              }`}
+              title="Bahasa Indonesia"
+            >
+              ID
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={`px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                lang === 'en'
+                  ? darkMode
+                    ? 'bg-white text-black font-extrabold shadow-sm'
+                    : 'bg-black text-white font-extrabold shadow-sm'
+                  : darkMode
+                    ? 'text-neutral-400 hover:text-white'
+                    : 'text-neutral-500 hover:text-black'
+              }`}
+              title="English"
+            >
+              EN
+            </button>
+          </div>
+
           <button
             type="button"
             onClick={toggleTheme}
-            className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-all duration-300 active:scale-95 cursor-pointer ${
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 active:scale-95 cursor-pointer ${
               darkMode
                 ? 'text-white hover:bg-neutral-900'
                 : 'text-black hover:bg-neutral-100'
@@ -221,10 +265,11 @@ const Navbar = ({ darkMode, toggleTheme }) => {
               <MoonStar className="w-5 h-5" />
             )}
           </button>
+
           <a
             href="/#contact"
             onClick={(e) => handleNavClick(e, '#contact')}
-            className={`px-6 py-2 border-2 font-bold text-sm uppercase tracking-widest transition-all cursor-pointer ${
+            className={`px-5 py-2 border-2 font-bold text-sm uppercase tracking-widest transition-all cursor-pointer ${
               activeId === 'contact'
                 ? darkMode
                   ? 'border-white bg-white text-black'
@@ -234,16 +279,56 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                   : 'border-black/40 text-black hover:border-black hover:bg-black hover:text-white'
             }`}
           >
-            Contact
+            {portfolioData.nav.contactBtn[lang] || 'Contact'}
           </a>
         </div>
 
         {/* Mobile Actions */}
         <div className="lg:hidden flex items-center gap-2">
+          {/* Mobile Language Switcher */}
+          <div
+            className={`inline-flex items-center p-0.5 border rounded-full text-[11px] font-mono font-bold tracking-wider transition-colors ${
+              darkMode
+                ? 'border-white/15 bg-neutral-900/80 text-white'
+                : 'border-black/15 bg-neutral-100/90 text-black'
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => setLang('id')}
+              className={`px-2 py-0.5 rounded-full transition-all duration-200 cursor-pointer ${
+                lang === 'id'
+                  ? darkMode
+                    ? 'bg-white text-black font-extrabold shadow-sm'
+                    : 'bg-black text-white font-extrabold shadow-sm'
+                  : darkMode
+                    ? 'text-neutral-400 hover:text-white'
+                    : 'text-neutral-500 hover:text-black'
+              }`}
+            >
+              ID
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              className={`px-2 py-0.5 rounded-full transition-all duration-200 cursor-pointer ${
+                lang === 'en'
+                  ? darkMode
+                    ? 'bg-white text-black font-extrabold shadow-sm'
+                    : 'bg-black text-white font-extrabold shadow-sm'
+                  : darkMode
+                    ? 'text-neutral-400 hover:text-white'
+                    : 'text-neutral-500 hover:text-black'
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
           <button
             type="button"
             onClick={toggleTheme}
-            className={`inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full transition-all duration-300 active:scale-95 cursor-pointer ${
+            className={`inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full transition-all duration-300 active:scale-95 cursor-pointer ${
               darkMode
                 ? 'text-white hover:bg-neutral-900'
                 : 'text-black hover:bg-neutral-100'
@@ -251,15 +336,15 @@ const Navbar = ({ darkMode, toggleTheme }) => {
             aria-label="Toggle theme"
           >
             {darkMode ? (
-              <SunMedium className="w-5 h-5" />
+              <SunMedium className="w-4 h-4 sm:w-5 sm:h-5" />
             ) : (
-              <MoonStar className="w-5 h-5" />
+              <MoonStar className="w-4 h-4 sm:w-5 sm:h-5" />
             )}
           </button>
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className={`inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-lg border transition-all duration-300 active:scale-95 cursor-pointer ${
+            className={`inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg border transition-all duration-300 active:scale-95 cursor-pointer ${
               darkMode
                 ? 'border-white/20 text-white hover:bg-neutral-900'
                 : 'border-neutral-200 text-black hover:bg-neutral-100'
@@ -272,16 +357,16 @@ const Navbar = ({ darkMode, toggleTheme }) => {
               className="inline-flex"
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               ) : (
-                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+                <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
               )}
             </motion.span>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown (Solid background, no blur) */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -301,7 +386,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                 const isActive = activeId === id;
                 return (
                   <button
-                    key={link.name}
+                    key={link.hash}
                     type="button"
                     onClick={(e) => handleNavClick(e, link.hash)}
                     className={`text-left text-base font-bold uppercase tracking-wider py-3 px-3 rounded-lg transition-colors cursor-pointer flex items-center justify-between min-h-[44px] ${
@@ -344,7 +429,7 @@ const Navbar = ({ darkMode, toggleTheme }) => {
                         : 'border-black/40 text-black hover:border-black hover:bg-black hover:text-white'
                   }`}
                 >
-                  Contact Me
+                  {portfolioData.nav.contactMeBtn[lang] || 'Contact Me'}
                 </button>
               </div>
             </div>

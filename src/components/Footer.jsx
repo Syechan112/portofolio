@@ -1,17 +1,25 @@
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
+import { useLanguage } from "../context/LanguageContext";
 
 const Footer = ({ darkMode }) => {
+  const { lang } = useLanguage();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const navigation = [
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Why Me", href: "#why-me" },
-    { name: "Portfolio", href: "#portfolio" },
-  ];
+  const navigation = portfolioData.nav.links.map((link) => ({
+    name: link.name[lang] || link.name.en,
+    href: link.hash,
+  }));
+
+  const { footer } = portfolioData;
+  const footerBadge = footer.badge[lang] || footer.badge.en;
+  const footerHeadline = footer.headline[lang] || footer.headline.en;
+  const taglineText = portfolioData.personal.tagline[lang] || portfolioData.personal.tagline.en;
+  const navLabel = footer.navLabel[lang] || footer.navLabel.en;
+  const connectLabel = footer.connectLabel[lang] || footer.connectLabel.en;
+  const backToTopText = footer.backToTop[lang] || footer.backToTop.en;
 
   return (
     <footer
@@ -29,24 +37,22 @@ const Footer = ({ darkMode }) => {
                   className={`text-xs font-mono uppercase tracking-[0.3em] ${
                     darkMode ? "text-neutral-600" : "text-neutral-400"
                   }`}>
-                  Portfolio
+                  {footerBadge}
                 </span>
               </div>
 
               <h2
-                className={`text-5xl sm:text-6xl md:text-8xl font-bold tracking-[-0.06em] leading-[0.85] max-w-4xl ${
+                className={`text-5xl sm:text-6xl md:text-8xl font-bold tracking-[-0.06em] leading-[0.85] max-w-4xl whitespace-pre-line ${
                   darkMode ? "text-white" : "text-black"
                 }`}>
-                Let's make
-                <br />
-                something good.
+                {footerHeadline}
               </h2>
 
               <p
                 className={`mt-10 max-w-md text-sm md:text-base leading-relaxed ${
                   darkMode ? "text-neutral-500" : "text-neutral-600"
                 }`}>
-                {portfolioData.personal.tagline}
+                {taglineText}
               </p>
             </div>
 
@@ -55,11 +61,11 @@ const Footer = ({ darkMode }) => {
                 className={`block mb-6 text-xs font-mono uppercase tracking-[0.2em] ${
                   darkMode ? "text-neutral-600" : "text-neutral-400"
                 }`}>
-                Navigation
+                {navLabel}
               </span>
 
               <nav className="flex flex-col">
-                {navigation.map((item, index) => (
+                {navigation.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
@@ -81,7 +87,7 @@ const Footer = ({ darkMode }) => {
                 className={`block mb-6 text-xs font-mono uppercase tracking-[0.2em] ${
                   darkMode ? "text-neutral-600" : "text-neutral-400"
                 }`}>
-                Connect
+                {connectLabel}
               </span>
 
               <div className="flex flex-col">
@@ -190,12 +196,12 @@ const Footer = ({ darkMode }) => {
           <button
             type="button"
             onClick={scrollToTop}
-            className={`group flex items-center gap-3 text-xs font-mono uppercase tracking-widest transition-colors ${
+            className={`group flex items-center gap-3 text-xs font-mono uppercase tracking-widest transition-colors cursor-pointer ${
               darkMode
                 ? "text-neutral-500 hover:text-white"
                 : "text-neutral-500 hover:text-black"
             }`}>
-            <span>Back to top</span>
+            <span>{backToTopText}</span>
 
             <span
               className={`w-8 h-8 border flex items-center justify-center transition-all duration-300 ${

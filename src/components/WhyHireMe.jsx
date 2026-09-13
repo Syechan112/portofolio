@@ -1,8 +1,10 @@
 import { useRef, useState, useLayoutEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { portfolioData } from "../data/portfolioData";
+import { useLanguage } from "../context/LanguageContext";
 
 const WhyHireMe = ({ darkMode = false }) => {
+  const { lang } = useLanguage();
   const { whyHireMe } = portfolioData;
 
   const targetRef = useRef(null);
@@ -15,6 +17,13 @@ const WhyHireMe = ({ darkMode = false }) => {
     target: targetRef,
     offset: ["start start", "end end"],
   });
+
+  const badgeText = whyHireMe.badge[lang] || whyHireMe.badge.en;
+  const titleText = whyHireMe.title[lang] || whyHireMe.title.en;
+  const subtitleText = whyHireMe.subtitle[lang] || whyHireMe.subtitle.en;
+  const nextBadgeText = whyHireMe.nextBadge[lang] || whyHireMe.nextBadge.en;
+  const nextTitleText = whyHireMe.nextTitle[lang] || whyHireMe.nextTitle.en;
+  const scrollText = whyHireMe.scrollText[lang] || whyHireMe.scrollText.en;
 
   /*
    * Hitung jarak horizontal sebenarnya.
@@ -48,14 +57,13 @@ const WhyHireMe = ({ darkMode = false }) => {
       resizeObserver.disconnect();
       window.removeEventListener("resize", calculateScroll);
     };
-  }, [whyHireMe.points]);
+  }, [whyHireMe.points, lang]);
 
   /*
    * Geser tepat sampai elemen terakhir berada
    * di dalam viewport.
    */
   const x = useTransform(scrollYProgress, [0, 1], [0, -maxScroll]);
-
   const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
@@ -82,7 +90,7 @@ const WhyHireMe = ({ darkMode = false }) => {
                   className={`font-mono text-[10px] uppercase tracking-[0.2em] ${
                     darkMode ? "text-neutral-500" : "text-neutral-500"
                   }`}>
-                  03 — Why Me
+                  {badgeText}
                 </span>
               </div>
             </div>
@@ -92,15 +100,14 @@ const WhyHireMe = ({ darkMode = false }) => {
                 className={`max-w-4xl text-4xl font-semibold leading-[0.92] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-7xl ${
                   darkMode ? "text-white" : "text-black"
                 }`}>
-                {whyHireMe.title}
+                {titleText}
               </h2>
 
               <p
                 className={`mt-6 max-w-md text-sm leading-6 ${
                   darkMode ? "text-neutral-500" : "text-neutral-500"
                 }`}>
-                A few things that define how I approach work, solve problems,
-                and build digital products.
+                {subtitleText}
               </p>
             </div>
           </div>
@@ -111,62 +118,67 @@ const WhyHireMe = ({ darkMode = false }) => {
             ref={trackRef}
             style={{ x }}
             className="flex w-max gap-4 px-6 md:gap-6 md:px-12">
-            {whyHireMe.points.map((point, idx) => (
-              <article
-                key={idx}
-                className="group w-[82vw] max-w-[460px] flex-shrink-0">
-                <div
-                  className={`relative flex h-[360px] flex-col justify-between overflow-hidden border transition-all duration-500 sm:h-[390px] md:h-[430px] ${
-                    darkMode
-                      ? "border-white/10 bg-neutral-900 hover:border-white/20"
-                      : "border-black/10 bg-white hover:border-black/20"
-                  }`}>
+            {whyHireMe.points.map((point, idx) => {
+              const pointTitle = point.title[lang] || point.title.en;
+              const pointDesc = point.description[lang] || point.description.en;
+
+              return (
+                <article
+                  key={idx}
+                  className="group w-[82vw] max-w-[460px] flex-shrink-0">
                   <div
-                    className={`pointer-events-none absolute -right-5 -top-12 select-none text-[150px] font-bold leading-none tracking-[-0.1em] transition-transform duration-700 sm:text-[180px] ${
-                      darkMode ? "text-white/[0.035]" : "text-black/[0.045]"
-                    } group-hover:-translate-y-3`}>
-                    {String(idx + 1).padStart(2, "0")}
-                  </div>
+                    className={`relative flex h-[360px] flex-col justify-between overflow-hidden border transition-all duration-500 sm:h-[390px] md:h-[430px] ${
+                      darkMode
+                        ? "border-white/10 bg-neutral-900 hover:border-white/20"
+                        : "border-black/10 bg-white hover:border-black/20"
+                    }`}>
+                    <div
+                      className={`pointer-events-none absolute -right-5 -top-12 select-none text-[150px] font-bold leading-none tracking-[-0.1em] transition-transform duration-700 sm:text-[180px] ${
+                        darkMode ? "text-white/[0.035]" : "text-black/[0.045]"
+                      } group-hover:-translate-y-3`}>
+                      {String(idx + 1).padStart(2, "0")}
+                    </div>
 
-                  <div className="relative z-10 flex items-center justify-between p-6 sm:p-7 md:p-9">
-                    <span
-                      className={`font-mono text-[10px] uppercase tracking-[0.2em] ${
-                        darkMode ? "text-neutral-500" : "text-neutral-400"
-                      }`}>
-                      0{idx + 1}
-                    </span>
+                    <div className="relative z-10 flex items-center justify-between p-6 sm:p-7 md:p-9">
+                      <span
+                        className={`font-mono text-[10px] uppercase tracking-[0.2em] ${
+                          darkMode ? "text-neutral-500" : "text-neutral-400"
+                        }`}>
+                        0{idx + 1}
+                      </span>
 
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full transition-transform duration-500 group-hover:scale-[2] ${
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full transition-transform duration-500 group-hover:scale-[2] ${
+                          darkMode ? "bg-white/40" : "bg-black/30"
+                        }`}
+                      />
+                    </div>
+
+                    <div className="relative z-10 p-6 sm:p-7 md:p-9">
+                      <h3
+                        className={`mb-4 max-w-[390px] text-2xl font-semibold leading-[1] tracking-[-0.04em] md:text-3xl ${
+                          darkMode ? "text-white" : "text-black"
+                        }`}>
+                        {pointTitle}
+                      </h3>
+
+                      <p
+                        className={`max-w-[390px] text-sm leading-6 md:text-[15px] md:leading-7 ${
+                          darkMode ? "text-neutral-400" : "text-neutral-600"
+                        }`}>
+                        {pointDesc}
+                      </p>
+                    </div>
+
+                    <div
+                      className={`relative z-10 h-px w-full origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100 ${
                         darkMode ? "bg-white/40" : "bg-black/30"
                       }`}
                     />
                   </div>
-
-                  <div className="relative z-10 p-6 sm:p-7 md:p-9">
-                    <h3
-                      className={`mb-4 max-w-[390px] text-2xl font-semibold leading-[1] tracking-[-0.04em] md:text-3xl ${
-                        darkMode ? "text-white" : "text-black"
-                      }`}>
-                      {point.title}
-                    </h3>
-
-                    <p
-                      className={`max-w-[390px] text-sm leading-6 md:text-[15px] md:leading-7 ${
-                        darkMode ? "text-neutral-400" : "text-neutral-600"
-                      }`}>
-                      {point.description}
-                    </p>
-                  </div>
-
-                  <div
-                    className={`relative z-10 h-px w-full origin-left scale-x-0 transition-transform duration-700 group-hover:scale-x-100 ${
-                      darkMode ? "bg-white/40" : "bg-black/30"
-                    }`}
-                  />
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
 
             <article className="flex w-[82vw] max-w-[650px] flex-shrink-0 items-center">
               <div className="px-2 sm:px-6 md:px-8">
@@ -174,16 +186,14 @@ const WhyHireMe = ({ darkMode = false }) => {
                   className={`mb-5 block font-mono text-[10px] uppercase tracking-[0.2em] ${
                     darkMode ? "text-neutral-600" : "text-neutral-400"
                   }`}>
-                  04 — What's next
+                  {nextBadgeText}
                 </span>
 
                 <h3
-                  className={`text-4xl font-semibold leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-7xl ${
+                  className={`text-4xl font-semibold leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-7xl whitespace-pre-line ${
                     darkMode ? "text-white" : "text-black"
                   }`}>
-                  And this is only
-                  <br />
-                  the beginning.
+                  {nextTitleText}
                 </h3>
 
                 <div
@@ -210,7 +220,7 @@ const WhyHireMe = ({ darkMode = false }) => {
               className={`font-mono text-[9px] tracking-[0.2em] ${
                 darkMode ? "text-neutral-600" : "text-neutral-400"
               }`}>
-              SCROLL
+              {scrollText}
             </span>
           </div>
         </div>

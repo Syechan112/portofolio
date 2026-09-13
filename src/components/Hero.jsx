@@ -8,9 +8,11 @@ import {
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
+import { useLanguage } from "../context/LanguageContext";
 import profile from "../assets/profile/profile.webp";
 
 const Hero = ({ darkMode = false }) => {
+  const { lang } = useLanguage();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -60,6 +62,13 @@ const Hero = ({ darkMode = false }) => {
     y.set(0);
   };
 
+  const roleText = portfolioData.personal.role[lang] || portfolioData.personal.role.en;
+  const bioText = portfolioData.personal.bio[lang] || portfolioData.personal.bio.en;
+  const headingPrefix = portfolioData.hero.headingPrefix[lang] || portfolioData.hero.headingPrefix.en;
+  const headingHighlight = portfolioData.hero.headingHighlight[lang] || portfolioData.hero.headingHighlight.en;
+  const viewProjectsText = portfolioData.hero.viewProjects[lang] || portfolioData.hero.viewProjects.en;
+  const getInTouchText = portfolioData.hero.getInTouch[lang] || portfolioData.hero.getInTouch.en;
+
   return (
     <section
       id="top"
@@ -74,7 +83,7 @@ const Hero = ({ darkMode = false }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className={`inline-flex items-center gap-2 px-3 py-1 border text-xs font-mono uppercase tracking-widest ${darkMode ? "border-white text-white" : "border-black text-black"}`}>
-            <span className="font-medium">{portfolioData.personal.role}</span>
+            <span className="font-medium">{roleText}</span>
           </motion.div>
 
           <motion.h1
@@ -82,7 +91,7 @@ const Hero = ({ darkMode = false }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl sm:text-7xl xl:text-6xl font-bold tracking-tighter leading-[1.08]">
-            Building Modern Web Apps with{" "}
+            {headingPrefix}{" "}
             <span className="relative inline-block my-1">
               <motion.span
                 initial={{ scaleX: 0 }}
@@ -106,7 +115,7 @@ const Hero = ({ darkMode = false }) => {
                 }}
                 transition={{ duration: 0.35, delay: 0.6 }}
                 className="relative z-10 px-1 sm:px-1.5 select-all">
-                Full-Stack &amp; AI Workflows.
+                {headingHighlight}
               </motion.span>
             </span>
           </motion.h1>
@@ -116,7 +125,7 @@ const Hero = ({ darkMode = false }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className={`text-lg sm:text-xl max-w-xl leading-relaxed ${darkMode ? "text-neutral-300" : "text-neutral-600"}`}>
-            {portfolioData.personal.bio}
+            {bioText}
           </motion.p>
 
           <motion.div
@@ -135,7 +144,7 @@ const Hero = ({ darkMode = false }) => {
                 }
               }}
               className={`group inline-flex items-center gap-2 px-6 py-3 border-2 font-bold text-sm sm:text-base transition-all duration-200 ${darkMode ? "border-white bg-white text-black hover:bg-transparent hover:text-white" : "border-black bg-black text-white hover:bg-white hover:text-black"}`}>
-              <span>View Projects</span>
+              <span>{viewProjectsText}</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
 
@@ -150,7 +159,7 @@ const Hero = ({ darkMode = false }) => {
                 }
               }}
               className={`inline-flex items-center gap-2 px-6 py-3 border-2 font-bold text-sm sm:text-base transition-all duration-200 ${darkMode ? "border-white text-white hover:bg-white hover:text-black" : "border-neutral-200 text-black hover:border-black"}`}>
-              <span>Get in Touch</span>
+              <span>{getInTouchText}</span>
             </a>
           </motion.div>
 
@@ -167,7 +176,7 @@ const Hero = ({ darkMode = false }) => {
                 </span>
                 <span
                   className={`text-xs uppercase tracking-widest mt-2 font-mono ${darkMode ? "text-neutral-400" : "text-neutral-500"}`}>
-                  {stat.label}
+                  {stat.label[lang] || stat.label.en}
                 </span>
               </div>
             ))}

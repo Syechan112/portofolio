@@ -1,8 +1,20 @@
 import { motion } from "framer-motion";
 import { portfolioData } from "../data/portfolioData";
+import { useLanguage } from "../context/LanguageContext";
 
 const About = ({ darkMode = false }) => {
+  const { lang } = useLanguage();
   const { about } = portfolioData;
+
+  const badgeText = about.badge[lang] || about.badge.en;
+  const headlineText = about.headline[lang] || about.headline.en;
+  const summaryText = about.summary[lang] || about.summary.en;
+  const stackHeader = about.technicalStackHeader[lang] || about.technicalStackHeader.en;
+  const backgroundTag = about.background?.tag[lang] || about.background?.tag.en;
+  const backgroundTitle = about.background?.title[lang] || about.background?.title.en;
+  const sectionEdu = about.sectionTitles?.education[lang] || about.sectionTitles?.education.en;
+  const sectionAch = about.sectionTitles?.achievements[lang] || about.sectionTitles?.achievements.en;
+  const sectionCert = about.sectionTitles?.certifications[lang] || about.sectionTitles?.certifications.en;
 
   return (
     <section
@@ -21,9 +33,8 @@ const About = ({ darkMode = false }) => {
             className={`text-xs font-mono uppercase tracking-[0.3em] ${
               darkMode ? "text-neutral-500" : "text-neutral-400"
             }`}>
-            {about.badge || "About"}
+            {badgeText}
           </span>
-
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-28">
@@ -50,7 +61,7 @@ const About = ({ darkMode = false }) => {
               className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] max-w-6xl ${
                 darkMode ? "text-white" : "text-black"
               }`}>
-              {about.headline}
+              {headlineText}
             </motion.h2>
 
             <motion.div
@@ -65,7 +76,7 @@ const About = ({ darkMode = false }) => {
                 className={`text-lg md:text-xl leading-relaxed whitespace-pre-line ${
                   darkMode ? "text-neutral-300" : "text-neutral-600"
                 }`}>
-                {about.summary}
+                {summaryText}
               </p>
             </motion.div>
           </div>
@@ -84,53 +95,54 @@ const About = ({ darkMode = false }) => {
               className={`text-xs font-mono uppercase tracking-[0.25em] ${
                 darkMode ? "text-neutral-400" : "text-neutral-500"
               }`}>
-              Technical Stack
+              {stackHeader}
             </span>
-
           </motion.div>
 
-          {about.technicalStack?.map((group, index) => (
-            <motion.div
-              key={group.label}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.08,
-                ease: "easeOut",
-              }}
-              viewport={{ once: true }}
-              className={`group grid grid-cols-1 md:grid-cols-12 gap-6 py-8 border-b transition-colors duration-300 ${
-                darkMode
-                  ? "border-white/10 hover:bg-white/[0.015]"
-                  : "border-black/10 hover:bg-black/[0.015]"
-              }`}>
-              <div className="md:col-span-3">
-                <span
-                  className={`text-xs font-mono uppercase tracking-widest ${
-                    darkMode ? "text-neutral-500" : "text-neutral-400"
-                  } transition-colors duration-300 group-hover:text-current`}>
-                  {group.label}
-                </span>
-              </div>
+          {about.technicalStack?.map((group) => {
+            const groupLabel = group.label[lang] || group.label.en;
+            return (
+              <motion.div
+                key={groupLabel}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
+                viewport={{ once: true }}
+                className={`group grid grid-cols-1 md:grid-cols-12 gap-6 py-8 border-b transition-colors duration-300 ${
+                  darkMode
+                    ? "border-white/10 hover:bg-white/[0.015]"
+                    : "border-black/10 hover:bg-black/[0.015]"
+                }`}>
+                <div className="md:col-span-3">
+                  <span
+                    className={`text-xs font-mono uppercase tracking-widest ${
+                      darkMode ? "text-neutral-500" : "text-neutral-400"
+                    } transition-colors duration-300 group-hover:text-current`}>
+                    {groupLabel}
+                  </span>
+                </div>
 
-              <div className="md:col-span-9 flex flex-wrap gap-x-8 gap-y-4">
-                {group.items.map((tech) => (
-                  <motion.span
-                    key={tech}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                    className={`text-2xl md:text-3xl font-bold tracking-tight cursor-default transition-colors duration-300 ${
-                      darkMode
-                        ? "text-neutral-300 hover:text-white"
-                        : "text-neutral-700 hover:text-black"
-                    }`}>
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                <div className="md:col-span-9 flex flex-wrap gap-x-8 gap-y-4">
+                  {group.items.map((tech) => (
+                    <motion.span
+                      key={tech}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                      className={`text-2xl md:text-3xl font-bold tracking-tight cursor-default transition-colors duration-300 ${
+                        darkMode
+                          ? "text-neutral-300 hover:text-white"
+                          : "text-neutral-700 hover:text-black"
+                      }`}>
+                      {tech}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -145,14 +157,14 @@ const About = ({ darkMode = false }) => {
                 className={`text-xs font-mono uppercase tracking-[0.25em] ${
                   darkMode ? "text-neutral-500" : "text-neutral-400"
                 }`}>
-                {about.background?.tag || "Background"}
+                {backgroundTag}
               </span>
 
               <h3
                 className={`mt-5 text-4xl md:text-5xl font-bold tracking-tighter leading-none whitespace-pre-line ${
                   darkMode ? "text-white" : "text-black"
                 }`}>
-                {about.background?.title || "Experience,\nlearning &\nmilestones."}
+                {backgroundTitle}
               </h3>
             </motion.div>
           </div>
@@ -171,7 +183,7 @@ const About = ({ darkMode = false }) => {
                   className={`text-xs font-mono uppercase tracking-widest ${
                     darkMode ? "text-neutral-400" : "text-neutral-500"
                   }`}>
-                  01  Education
+                  {sectionEdu}
                 </span>
 
                 <span
@@ -182,178 +194,190 @@ const About = ({ darkMode = false }) => {
                 </span>
               </div>
 
-              {about.education?.map((edu, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: i * 0.08 }}
-                  viewport={{ once: true }}
-                  className={`group grid grid-cols-1 md:grid-cols-12 gap-4 py-7 border-t transition-colors duration-300 ${
-                    darkMode
-                      ? "border-white/10 hover:bg-white/[0.02]"
-                      : "border-black/10 hover:bg-black/[0.02]"
+              {about.education?.map((edu, i) => {
+                const eduTitle = edu.title[lang] || edu.title.en;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: i * 0.08 }}
+                    viewport={{ once: true }}
+                    className={`group grid grid-cols-1 md:grid-cols-12 gap-4 py-7 border-t transition-colors duration-300 ${
+                      darkMode
+                        ? "border-white/10 hover:bg-white/[0.02]"
+                        : "border-black/10 hover:bg-black/[0.02]"
+                    }`}>
+                    <div className="md:col-span-2">
+                      <span
+                        className={`font-mono text-xs ${
+                          darkMode ? "text-neutral-500" : "text-neutral-400"
+                        }`}>
+                        {edu.period}
+                      </span>
+                    </div>
+
+                    <div className="md:col-span-10">
+                      <h4
+                        className={`text-xl md:text-2xl font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-1.5 ${
+                          darkMode ? "text-white" : "text-black"
+                        }`}>
+                        {eduTitle}
+                      </h4>
+
+                      <p
+                        className={`mt-2 text-sm ${
+                          darkMode ? "text-neutral-400" : "text-neutral-500"
+                        }`}>
+                        {edu.school}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className={`mt-20 border-t ${
+                darkMode ? "border-white/10" : "border-black"
+              }`}>
+              <div className="py-5">
+                <span
+                  className={`text-xs font-mono uppercase tracking-widest ${
+                    darkMode ? "text-neutral-400" : "text-neutral-500"
                   }`}>
-                  <div className="md:col-span-2">
+                  {sectionAch}
+                </span>
+              </div>
+
+              {about.achievements?.map((ach, i) => {
+                const achTitle = ach.title[lang] || ach.title.en;
+                const achDesc = ach.description[lang] || ach.description.en;
+                const achDetails = ach.details ? (ach.details[lang] || ach.details.en) : null;
+
+                return (
+                  <motion.a
+                    key={i}
+                    href={ach.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: i * 0.08 }}
+                    viewport={{ once: true }}
+                    className={`group block py-8 border-t transition-all duration-300 ${
+                      darkMode
+                        ? "border-white/10 hover:bg-white/[0.02]"
+                        : "border-black/10 hover:bg-black/[0.02]"
+                    }`}>
+                    <div className="flex items-start justify-between gap-6">
+                      <div>
+                        <h4
+                          className={`text-xl md:text-2xl font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-2 ${
+                            darkMode ? "text-white" : "text-black"
+                          }`}>
+                          {achTitle}
+                          <span className="inline-block ml-2 text-sm font-normal transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                            ↗
+                          </span>
+                        </h4>
+
+                        <p
+                          className={`mt-3 max-w-2xl text-sm leading-relaxed ${
+                            darkMode ? "text-neutral-400" : "text-neutral-600"
+                          }`}>
+                          {achDesc}
+                        </p>
+
+                        {achDetails && (
+                          <ul
+                            className={`mt-4 space-y-2 text-xs ${
+                              darkMode ? "text-neutral-500" : "text-neutral-500"
+                            }`}>
+                            {achDetails.map((detail, j) => (
+                              <li key={j} className="flex gap-2">
+                                <span>—</span>
+                                <span>{detail}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+
+                      <span
+                        className={`font-mono text-xs shrink-0 px-2 py-1 border transition-colors ${
+                          darkMode
+                            ? "border-white/10 text-neutral-500 group-hover:border-white/30 group-hover:text-white"
+                            : "border-black/10 text-neutral-400 group-hover:border-black/30 group-hover:text-black"
+                        }`}>
+                        {ach.year}
+                      </span>
+                    </div>
+                  </motion.a>
+                );
+              })}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className={`mt-20 border-t ${
+                darkMode ? "border-white/10" : "border-black"
+              }`}>
+              <div className="py-5">
+                <span
+                  className={`text-xs font-mono uppercase tracking-widest ${
+                    darkMode ? "text-neutral-400" : "text-neutral-500"
+                  }`}>
+                  {sectionCert}
+                </span>
+              </div>
+
+              {about.certifications?.map((cert, i) => {
+                const certTitle = cert.title[lang] || cert.title.en;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: i * 0.08 }}
+                    viewport={{ once: true }}
+                    className={`group flex items-center justify-between gap-6 py-6 border-t transition-colors duration-300 ${
+                      darkMode
+                        ? "border-white/10 hover:bg-white/[0.02]"
+                        : "border-black/10 hover:bg-black/[0.02]"
+                    }`}>
+                    <div>
+                      <h4
+                        className={`font-semibold transition-transform duration-300 group-hover:translate-x-1.5 ${
+                          darkMode ? "text-white" : "text-black"
+                        }`}>
+                        {certTitle}
+                      </h4>
+
+                      <p
+                        className={`mt-1 text-xs ${
+                          darkMode ? "text-neutral-500" : "text-neutral-500"
+                        }`}>
+                        {cert.issuer}
+                      </p>
+                    </div>
+
                     <span
                       className={`font-mono text-xs ${
                         darkMode ? "text-neutral-500" : "text-neutral-400"
                       }`}>
-                      {edu.period}
+                      {cert.year}
                     </span>
-                  </div>
-
-                  <div className="md:col-span-10">
-                    <h4
-                      className={`text-xl md:text-2xl font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-1.5 ${
-                        darkMode ? "text-white" : "text-black"
-                      }`}>
-                      {edu.title}
-                    </h4>
-
-                    <p
-                      className={`mt-2 text-sm ${
-                        darkMode ? "text-neutral-400" : "text-neutral-500"
-                      }`}>
-                      {edu.school}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className={`mt-20 border-t ${
-                darkMode ? "border-white/10" : "border-black"
-              }`}>
-              <div className="py-5">
-                <span
-                  className={`text-xs font-mono uppercase tracking-widest ${
-                    darkMode ? "text-neutral-400" : "text-neutral-500"
-                  }`}>
-                  02  Achievements
-                </span>
-              </div>
-
-              {about.achievements?.map((ach, i) => (
-                <motion.a
-                  key={i}
-                  href={ach.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: i * 0.08 }}
-                  viewport={{ once: true }}
-                  className={`group block py-8 border-t transition-all duration-300 ${
-                    darkMode
-                      ? "border-white/10 hover:bg-white/[0.02]"
-                      : "border-black/10 hover:bg-black/[0.02]"
-                  }`}>
-                  <div className="flex items-start justify-between gap-6">
-                    <div>
-                      <h4
-                        className={`text-xl md:text-2xl font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-2 ${
-                          darkMode ? "text-white" : "text-black"
-                        }`}>
-                        {ach.title}
-                        <span className="inline-block ml-2 text-sm font-normal transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                          ↗
-                        </span>
-                      </h4>
-
-                      <p
-                        className={`mt-3 max-w-2xl text-sm leading-relaxed ${
-                          darkMode ? "text-neutral-400" : "text-neutral-600"
-                        }`}>
-                        {ach.description}
-                      </p>
-
-                      {ach.details && (
-                        <ul
-                          className={`mt-4 space-y-2 text-xs ${
-                            darkMode ? "text-neutral-500" : "text-neutral-500"
-                          }`}>
-                          {ach.details.map((detail, j) => (
-                            <li key={j} className="flex gap-2">
-                              <span>—</span>
-                              <span>{detail}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-
-                    <span
-                      className={`font-mono text-xs shrink-0 px-2 py-1 border transition-colors ${
-                        darkMode
-                          ? "border-white/10 text-neutral-500 group-hover:border-white/30 group-hover:text-white"
-                          : "border-black/10 text-neutral-400 group-hover:border-black/30 group-hover:text-black"
-                      }`}>
-                      {ach.year}
-                    </span>
-                  </div>
-                </motion.a>
-              ))}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className={`mt-20 border-t ${
-                darkMode ? "border-white/10" : "border-black"
-              }`}>
-              <div className="py-5">
-                <span
-                  className={`text-xs font-mono uppercase tracking-widest ${
-                    darkMode ? "text-neutral-400" : "text-neutral-500"
-                  }`}>
-                  03  Certifications
-                </span>
-              </div>
-
-              {about.certifications?.map((cert, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: i * 0.08 }}
-                  viewport={{ once: true }}
-                  className={`group flex items-center justify-between gap-6 py-6 border-t transition-colors duration-300 ${
-                    darkMode
-                      ? "border-white/10 hover:bg-white/[0.02]"
-                      : "border-black/10 hover:bg-black/[0.02]"
-                  }`}>
-                  <div>
-                    <h4
-                      className={`font-semibold transition-transform duration-300 group-hover:translate-x-1.5 ${
-                        darkMode ? "text-white" : "text-black"
-                      }`}>
-                      {cert.title}
-                    </h4>
-
-                    <p
-                      className={`mt-1 text-xs ${
-                        darkMode ? "text-neutral-500" : "text-neutral-500"
-                      }`}>
-                      {cert.issuer}
-                    </p>
-                  </div>
-
-                  <span
-                    className={`font-mono text-xs ${
-                      darkMode ? "text-neutral-500" : "text-neutral-400"
-                    }`}>
-                    {cert.year}
-                  </span>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         </div>

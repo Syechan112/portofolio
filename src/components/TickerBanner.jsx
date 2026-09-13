@@ -1,7 +1,9 @@
 import { portfolioData } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 const TickerBanner = () => {
-  const items = portfolioData.tickerItems;
+  const { lang } = useLanguage();
+  const items = portfolioData.tickerItems[lang] || portfolioData.tickerItems.en;
 
   return (
     <div className="relative w-full overflow-hidden py-6 border-b border-neutral-100 dark:border-white/10 z-20 group">
@@ -19,4 +21,3 @@ const TickerBanner = () => {
 };
 
 export default TickerBanner;
-
