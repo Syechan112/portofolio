@@ -86,15 +86,18 @@ function App() {
       darkMode ? 'bg-neutral-950 text-white selection:bg-red-600 selection:text-white' : 'bg-white text-black selection:bg-black selection:text-white'
     }`}>
       <Helmet>
-        <title>{portfolioData.personal.name} | Portfolio</title>
-        <meta name="description" content="Personal portfolio for product design, full-stack engineering, and AI workflows." />
-        <meta name="keywords" content="portfolio, full stack developer, frontend engineer, react, web development" />
+        <title>{portfolioData.personal.name} — Junior Full-Stack Developer</title>
+        <meta name="description" content="Portfolio of Syehan Mochsin Althubaiti, Junior Full-Stack Developer passionate about building modern web applications with clean code and AI workflows." />
+        <meta name="keywords" content="Syehan Mochsin Althubaiti, Junior Full-Stack Developer, Frontend Developer, Web Developer, React, Vue.js, Laravel, Portfolio" />
         <meta name="author" content={portfolioData.personal.name} />
-        <meta property="og:title" content={`${portfolioData.personal.name} | Portfolio`} />
-        <meta property="og:description" content="Personal portfolio for product design, full-stack engineering, and AI workflows." />
+        <meta property="og:title" content={`${portfolioData.personal.name} — Junior Full-Stack Developer`} />
+        <meta property="og:description" content="Crafting responsive web applications with clean code and modern AI workflows. Explore my latest projects, technical stack, and experience." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="/" />
-        <link rel="canonical" href="/" />
+        <meta property="og:url" content="https://www.seans.biz.id/" />
+        <meta property="og:image" content="https://www.seans.biz.id/syehan.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:image" content="https://www.seans.biz.id/syehan.png" />
+        <link rel="canonical" href="https://www.seans.biz.id/" />
       </Helmet>
 
       <AnimatePresence>
