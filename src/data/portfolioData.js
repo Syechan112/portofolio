@@ -162,6 +162,17 @@ export const portfolioData = {
 
       {
         id: 3,
+        title: "Aetheria",
+        category: "Web",
+        tagline:
+          "Modern company profile and sustainable commercial facility care platform with clean architecture and responsive design.",
+        tags: ["Vue.js", "Tailwind CSS", "Vite"],
+        link: "https://aetheria-profile.vercel.app/",
+        featured: true,
+      },
+
+      {
+        id: 4,
         title: "E-Procurement API",
         category: "Backend",
         tagline:
@@ -172,7 +183,7 @@ export const portfolioData = {
       },
 
       {
-        id: 4,
+        id: 5,
         title: "Sistem Absensi Sekolah",
         category: "Web",
         tagline:
@@ -183,7 +194,7 @@ export const portfolioData = {
       },
 
       {
-        id: 5,
+        id: 6,
         title: "Aroma Kopi",
         category: "Frontend",
         tagline:
@@ -194,7 +205,7 @@ export const portfolioData = {
       },
 
       {
-        id: 6,
+        id: 7,
         title: "Blog Post Laravel",
         category: "Web",
         tagline:
@@ -205,7 +216,7 @@ export const portfolioData = {
       },
 
       {
-        id: 7,
+        id: 8,
         title: "Todo List Laravel",
         category: "Web",
         tagline:
