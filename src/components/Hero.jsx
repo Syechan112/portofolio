@@ -1,5 +1,11 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { portfolioData } from "../data/portfolioData";
 import profile from "../assets/profile/profile.webp";
@@ -13,7 +19,6 @@ const Hero = ({ darkMode = false }) => {
 
   const opacityFade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  
   const cardRef = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
