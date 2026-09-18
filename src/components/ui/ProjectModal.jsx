@@ -33,23 +33,29 @@ const ProjectModal = ({ project, isOpen, onClose, darkMode }) => {
 
   return (
     <AnimatePresence>
-      <div 
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
         onClick={onClose}
-        className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-sm">
+        style={{ willChange: "opacity" }}
+        className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80">
           <motion.div
             onClick={(e) => e.stopPropagation()}
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={{ top: 0, bottom: 0.5 }}
+            dragElastic={{ top: 0, bottom: 0.3 }}
             onDragEnd={(e, info) => {
-              if (info.offset.y > 100 || info.velocity.y > 400) {
+              if (info.offset.y > 80 || info.velocity.y > 300) {
                 onClose();
               }
             }}
-            initial={{ opacity: 0, y: 40, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 60, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            style={{ willChange: "transform, opacity" }}
             className={`relative w-full max-w-2xl max-h-[88vh] sm:max-h-[90vh] flex flex-col rounded-t-[28px] sm:rounded-2xl border-t sm:border shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing ${
               darkMode
                 ? "bg-neutral-900 border-white/15 text-white"
@@ -176,7 +182,7 @@ const ProjectModal = ({ project, isOpen, onClose, darkMode }) => {
             )}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </AnimatePresence>
   );
 };
