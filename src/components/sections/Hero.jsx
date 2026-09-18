@@ -7,9 +7,9 @@ import {
   useSpring,
 } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { portfolioData } from "../data/portfolioData";
-import { useLanguage } from "../context/LanguageContext";
-import profile from "../assets/profile/profile.webp";
+import { portfolioData } from "../../data/portfolioData";
+import { useLanguage } from "../../context/LanguageContext";
+import profile from "../../assets/profile/profile.webp";
 
 const Hero = ({ darkMode = false }) => {
   const { lang } = useLanguage();

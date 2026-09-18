@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, MoonStar, SunMedium, Globe } from 'lucide-react';
-import { portfolioData } from '../data/portfolioData';
-import { useLanguage } from '../context/LanguageContext';
+import { portfolioData } from '../../data/portfolioData';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Navbar = ({ darkMode, toggleTheme }) => {
   const { lang, setLang } = useLanguage();

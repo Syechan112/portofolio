@@ -1,6 +1,6 @@
 import { ArrowUp, ArrowUpRight } from "lucide-react";
-import { portfolioData } from "../data/portfolioData";
-import { useLanguage } from "../context/LanguageContext";
+import { portfolioData } from "../../data/portfolioData";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Footer = ({ darkMode }) => {
   const { lang } = useLanguage();

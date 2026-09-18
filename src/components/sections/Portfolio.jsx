@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { portfolioData } from "../data/portfolioData";
-import { useLanguage } from "../context/LanguageContext";
+import { portfolioData } from "../../data/portfolioData";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Portfolio = ({ darkMode = false }) => {
   const { lang } = useLanguage();

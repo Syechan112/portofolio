@@ -1,22 +1,22 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import CustomCursor from './components/CustomCursor';
-import Hero from './components/Hero';
-import { portfolioData } from './data/portfolioData';
-import { useLanguage } from './context/LanguageContext';
+import { useState, useEffect, lazy, Suspense } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import CustomCursor from "./components/ui/CustomCursor";
+import Hero from "./components/sections/Hero";
+import { portfolioData } from "./data/portfolioData";
+import { useLanguage } from "./context/LanguageContext";
 
-const About = lazy(() => import('./components/About'));
-const TickerBanner = lazy(() => import('./components/TickerBanner'));
-const Services = lazy(() => import('./components/Services'));
-const Experience = lazy(() => import('./components/Experience'));
-const WhyHireMe = lazy(() => import('./components/WhyHireMe'));
-const Portfolio = lazy(() => import('./components/Portfolio'));
-const Testimonials = lazy(() => import('./components/Testimonials'));
-const CTASection = lazy(() => import('./components/CTASection'));
+const About = lazy(() => import("./pages/AboutPage"));
+const TickerBanner = lazy(() => import("./components/TickerBanner"));
+const Services = lazy(() => import("./components/sections/Services"));
+const Experience = lazy(() => import("./components/sections/Experience"));
+const WhyHireMe = lazy(() => import("./components/sections/WhyHireMe"));
+const Portfolio = lazy(() => import("./components/sections/Portfolio"));
+const Testimonials = lazy(() => import("./components/sections/Testimonials"));
+const CTASection = lazy(() => import("./components/sections/CTASection"));
 
 const Home = ({ darkMode }) => {
   return (
@@ -38,8 +38,8 @@ function App() {
   const { lang } = useLanguage();
   const seo = portfolioData.seo[lang] || portfolioData.seo.en;
   const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme ? savedTheme === 'dark' : false;
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : false;
   });
   const [isTransitioning, setIsTransitioning] = useState(false);
   const location = useLocation();
@@ -47,7 +47,7 @@ function App() {
   useEffect(() => {
     if (!location.hash) return;
 
-    const targetId = location.hash.replace('#', '');
+    const targetId = location.hash.replace("#", "");
     let timeoutId;
 
     const tryScroll = (attempts = 0) => {
@@ -55,10 +55,11 @@ function App() {
       if (elem) {
         const headerOffset = 70;
         const elementPosition = elem.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
         window.scrollTo({
           top: Math.max(0, offsetPosition),
-          behavior: attempts === 0 ? 'auto' : 'smooth',
+          behavior: attempts === 0 ? "auto" : "smooth",
         });
       } else if (attempts < 6) {
         timeoutId = setTimeout(() => tryScroll(attempts + 1), 120);
@@ -70,8 +71,8 @@ function App() {
   }, [location.pathname, location.hash]);
 
   useEffect(() => {
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-    document.documentElement.classList.toggle('dark', darkMode);
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
   const toggleTheme = () => {
@@ -85,22 +86,34 @@ function App() {
   };
 
   return (
-    <div className={`w-full min-h-screen font-sans antialiased transition-colors duration-300 ${
-      darkMode ? 'bg-neutral-950 text-white selection:bg-red-600 selection:text-white' : 'bg-white text-black selection:bg-black selection:text-white'
-    }`}>
+    <div
+      className={`w-full min-h-screen font-sans antialiased transition-colors duration-300 ${
+        darkMode
+          ? "bg-neutral-950 text-white selection:bg-red-600 selection:text-white"
+          : "bg-white text-black selection:bg-black selection:text-white"
+      }`}>
       <Helmet>
         <html lang={lang} />
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
-        <meta name="keywords" content="Syehan Mochsin Althubaiti, Junior Full-Stack Developer, Frontend Developer, Web Developer, React, Vue.js, Laravel, Portfolio" />
+        <meta
+          name="keywords"
+          content="Syehan Mochsin Althubaiti, Junior Full-Stack Developer, Frontend Developer, Web Developer, React, Vue.js, Laravel, Portfolio"
+        />
         <meta name="author" content={portfolioData.personal.name} />
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.ogDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.seans.biz.id/" />
-        <meta property="og:image" content="https://www.seans.biz.id/syehan.png" />
+        <meta
+          property="og:image"
+          content="https://www.seans.biz.id/syehan.png"
+        />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:image" content="https://www.seans.biz.id/syehan.png" />
+        <meta
+          property="twitter:image"
+          content="https://www.seans.biz.id/syehan.png"
+        />
         <link rel="canonical" href="https://www.seans.biz.id/" />
       </Helmet>
 
@@ -111,7 +124,7 @@ function App() {
             animate={{ scaleY: 1, originY: 0 }}
             exit={{ scaleY: 0, originY: 1 }}
             transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-            className={`fixed inset-0 z-[100] pointer-events-none ${darkMode ? 'bg-white' : 'bg-neutral-950'}`}
+            className={`fixed inset-0 z-[100] pointer-events-none ${darkMode ? "bg-white" : "bg-neutral-950"}`}
           />
         )}
       </AnimatePresence>
@@ -124,12 +137,23 @@ function App() {
           <Routes>
             <Route path="/" element={<Home darkMode={darkMode} />} />
             <Route path="/about" element={<About darkMode={darkMode} />} />
-            <Route path="/services" element={<Services darkMode={darkMode} />} />
-            <Route path="/experience" element={<Experience darkMode={darkMode} />} />
+            <Route
+              path="/services"
+              element={<Services darkMode={darkMode} />}
+            />
+            <Route
+              path="/experience"
+              element={<Experience darkMode={darkMode} />}
+            />
             <Route path="/why-me" element={<WhyHireMe darkMode={darkMode} />} />
-            <Route path="/portfolio" element={<Portfolio darkMode={darkMode} />} />
-            <Route path="/testimonials" element={<Testimonials darkMode={darkMode} />} />
-            <Route path="/contact" element={<CTASection darkMode={darkMode} />} />
+            <Route
+              path="/portfolio"
+              element={<Portfolio darkMode={darkMode} />}
+            />
+            <Route
+              path="/contact"
+              element={<CTASection darkMode={darkMode} />}
+            />
           </Routes>
         </Suspense>
       </main>

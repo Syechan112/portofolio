@@ -1,5 +1,5 @@
-import { portfolioData } from '../data/portfolioData';
-import { useLanguage } from '../context/LanguageContext';
+import { portfolioData } from '../../data/portfolioData';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Testimonials = ({ darkMode = false }) => {
   const { lang } = useLanguage();

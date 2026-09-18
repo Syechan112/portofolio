@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { portfolioData } from '../data/portfolioData';
-import { useLanguage } from '../context/LanguageContext';
+import { portfolioData } from '../../data/portfolioData';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Experience = ({ darkMode = false }) => {
   const { lang } = useLanguage();

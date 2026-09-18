@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Copy, Check, Mail, MessageSquare } from "lucide-react";
-import { portfolioData } from "../data/portfolioData";
-import { useLanguage } from "../context/LanguageContext";
+import { portfolioData } from "../../data/portfolioData";
+import { useLanguage } from "../../context/LanguageContext";
 
 const CTASection = ({ darkMode = false }) => {
   const { lang } = useLanguage();

@@ -1,7 +1,7 @@
 import { useRef, useState, useLayoutEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { portfolioData } from "../data/portfolioData";
-import { useLanguage } from "../context/LanguageContext";
+import { portfolioData } from "../../data/portfolioData";
+import { useLanguage } from "../../context/LanguageContext";
 
 const WhyHireMe = ({ darkMode = false }) => {
   const { lang } = useLanguage();
