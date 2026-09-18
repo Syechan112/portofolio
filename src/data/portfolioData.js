@@ -238,34 +238,25 @@ export const portfolioData = {
 
   experience: [
     {
-      period: "2023 - Present",
-      role: "Lead Product Designer & Tech Lead",
-      company: "Nexus Labs Global",
+      period: "08/2026 — Present | Indonesia",
+      role: "Co-Founder & Web Developer",
+      company: "NusaCode",
+      link: "https://nusa-code.vercel.app/",
       description: {
-        en: "Spearheaded design system unification across 4 enterprise products, increasing designer-developer velocity by 45%.",
-        id: "Memimpin penyatuan design system di 4 produk enterprise, meningkatkan kecepatan kolaborasi desainer-developer sebesar 45%.",
+        en: "• Co-founded a two-person web development agency with a focus on website development.\n• Developed the agency's own website and digital presence.\n• Handled frontend development and technical implementation.\n• Collaborated with a partner on technical planning and development.",
+        id: "• Mendirikan agensi pengembangan web beranggotakan dua orang dengan fokus pada pembuatan website.\n• Mengembangkan website resmi dan kehadiran digital agensi.\n• Menangani pengembangan frontend dan implementasi teknis.\n• Berkolaborasi dengan mitra dalam perencanaan teknis dan pengembangan.",
       },
-      skills: ["React", "Design Systems", "Team Leadership", "Figma"],
+      skills: ["Web Development", "Frontend Development", "Vue.js", "React", "Tailwind CSS"],
     },
     {
-      period: "2021 - 2023",
-      role: "Senior UI/UX Engineer",
-      company: "Aura Fintech Inc.",
+      period: "06/2024 — 08/2024 | Serang, Banten",
+      role: "Data Support & Web Development Intern",
+      company: "Kejaksaan Negeri Serang",
       description: {
-        en: "Redesigned mobile onboarding flow, increasing 30-day conversion rate from 18% to 34% across 1.2M users.",
-        id: "Mendesain ulang alur onboarding mobile, meningkatkan tingkat konversi 30 hari dari 18% menjadi 34% di antara 1,2 juta pengguna.",
+        en: "• Collaborated within an engineering team to develop and refine user interface components for internal web systems using HTML, CSS, Bootstrap, and JavaScript.\n• Digitized physical court and suspect case records into secure digital databases and structured Excel spreadsheets, significantly expediting data retrieval workflows.\n• Maintained high data accuracy during high-volume manual record processing and administrative archive management.",
+        id: "• Berkolaborasi dengan tim engineering untuk mengembangkan dan menyempurnakan komponen antarmuka sistem web internal menggunakan HTML, CSS, Bootstrap, dan JavaScript.\n• Mendigitalkan berkas perkara dan catatan pengadilan fisik ke dalam basis data digital yang aman serta spreadsheet Excel terstruktur guna mempercepat alur temu kembali data.\n• Menjaga akurasi data yang tinggi selama pemrosesan arsip manual bervolume besar dan pengelolaan arsip administrasi.",
       },
-      skills: ["Next.js", "Tailwind CSS", "A/B Testing", "Mobile UX"],
-    },
-    {
-      period: "2019 - 2021",
-      role: "Fullstack Design Engineer",
-      company: "Studio Vertex",
-      description: {
-        en: "Designed and built custom SaaS landing pages, interactive product marketing sites, and bespoke web apps.",
-        id: "Merancang dan membangun landing page SaaS kustom, situs pemasaran produk interaktif, dan aplikasi web khusus.",
-      },
-      skills: ["UI Architecture", "Animation", "REST APIs", "TypeScript"],
+      skills: ["HTML", "CSS", "Bootstrap", "JavaScript", "Database Management", "Data Processing"],
     },
   ],
 
@@ -553,17 +544,21 @@ export const portfolioData = {
       },
     },
     sectionTitles: {
+      experience: {
+        en: "01  Experience",
+        id: "01  Pengalaman Kerja",
+      },
       education: {
-        en: "01  Education",
-        id: "01  Pendidikan",
+        en: "02  Education",
+        id: "02  Pendidikan",
       },
       achievements: {
-        en: "02  Achievements",
-        id: "02  Pencapaian",
+        en: "03  Achievements",
+        id: "03  Pencapaian",
       },
       certifications: {
-        en: "03  Certifications",
-        id: "03  Sertifikasi",
+        en: "04  Sertifikasi",
+        id: "04  Sertifikasi",
       },
     },
     education: [

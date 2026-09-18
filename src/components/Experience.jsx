@@ -37,15 +37,26 @@ const Experience = ({ darkMode = false }) => {
                   <p className={`text-sm font-mono uppercase tracking-widest ${darkMode ? 'text-neutral-400' : 'text-neutral-500'}`}>
                     {item.period}
                   </p>
-                  <h4 className={`text-xl font-bold mt-2 ${darkMode ? 'text-white' : 'text-black'}`}>
-                    {item.company}
-                  </h4>
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-xl font-bold mt-2 inline-flex items-center gap-1 hover:underline ${darkMode ? 'text-white' : 'text-black'}`}
+                    >
+                      {item.company} <span className="text-sm">↗</span>
+                    </a>
+                  ) : (
+                    <h4 className={`text-xl font-bold mt-2 ${darkMode ? 'text-white' : 'text-black'}`}>
+                      {item.company}
+                    </h4>
+                  )}
                 </div>
                 <div className="md:col-span-8">
                   <h5 className={`text-2xl font-bold mb-4 tracking-tight ${darkMode ? 'text-white' : 'text-black'}`}>
                     {item.role}
                   </h5>
-                  <p className={`leading-relaxed mb-6 max-w-2xl ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
+                  <p className={`leading-relaxed mb-6 max-w-2xl whitespace-pre-line ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
                     {desc}
                   </p>
                   <div className="flex flex-wrap gap-2">
