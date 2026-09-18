@@ -2,10 +2,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { portfolioData } from "../../data/portfolioData";
 import { useLanguage } from "../../context/LanguageContext";
+import ProjectModal from "../ui/ProjectModal";
 
 const Portfolio = ({ darkMode = false }) => {
   const { lang } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedProject, setSelectedProject] = useState(null);
   const { badge, title, categories, projects, exploreBtn } =
     portfolioData.portfolio;
 
@@ -94,6 +96,7 @@ const Portfolio = ({ darkMode = false }) => {
             return (
               <motion.article
                 key={project.id}
+                onClick={() => setSelectedProject(project)}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
@@ -102,7 +105,7 @@ const Portfolio = ({ darkMode = false }) => {
                   delay: index * 0.05,
                   ease: "easeOut",
                 }}
-                className={`group relative flex flex-col justify-between p-6 md:p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${getBento()} ${
+                className={`group relative flex flex-col justify-between p-6 md:p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer ${getBento()} ${
                   darkMode
                     ? "bg-neutral-900/50 border-white/10 hover:border-white/20 hover:shadow-black/40"
                     : "bg-white border-black/10 hover:border-black/20 hover:shadow-neutral-200/60"
@@ -125,16 +128,13 @@ const Portfolio = ({ darkMode = false }) => {
                         ? "text-white group-hover:text-neutral-200"
                         : "text-black group-hover:text-neutral-700"
                     }`}>
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <span
                       className="inline-flex items-center gap-1.5 focus:outline-none">
                       {project.title}
                       <span className="inline-block text-lg transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                         ↗
                       </span>
-                    </a>
+                    </span>
                   </h3>
 
                   <p
@@ -160,23 +160,26 @@ const Portfolio = ({ darkMode = false }) => {
                     ))}
                   </div>
 
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <span
                     className={`text-xs font-mono font-medium inline-flex items-center gap-1 ${
                       darkMode
                         ? "text-white hover:text-neutral-300"
                         : "text-black hover:text-neutral-600"
                     }`}>
                     {exploreText}
-                  </a>
+                  </span>
                 </div>
               </motion.article>
             );
           })}
         </div>
       </div>
+      <ProjectModal
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        darkMode={darkMode}
+      />
     </section>
   );
 };

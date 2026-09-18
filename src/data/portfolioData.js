@@ -1,3 +1,7 @@
+import hiplatyImg from "../assets/projects/hiplaty.webp";
+import nusacodeImg from "../assets/projects/nusacode.webp";
+import atheriaImg from "../assets/projects/atheria.webp";
+
 export const portfolioData = {
   personal: {
     name: "SYEHAN MOCHSIN ALTHUBAITI",
@@ -246,7 +250,13 @@ export const portfolioData = {
         en: "• Co-founded a two-person web development agency with a focus on website development.\n• Developed the agency's own website and digital presence.\n• Handled frontend development and technical implementation.\n• Collaborated with a partner on technical planning and development.",
         id: "• Mendirikan agensi pengembangan web beranggotakan dua orang dengan fokus pada pembuatan website.\n• Mengembangkan website resmi dan kehadiran digital agensi.\n• Menangani pengembangan frontend dan implementasi teknis.\n• Berkolaborasi dengan mitra dalam perencanaan teknis dan pengembangan.",
       },
-      skills: ["Web Development", "Frontend Development", "Vue.js", "React", "Tailwind CSS"],
+      skills: [
+        "Web Development",
+        "Frontend Development",
+        "Vue.js",
+        "React",
+        "Tailwind CSS",
+      ],
     },
     {
       period: "06/2024 — 08/2024 | Serang, Banten",
@@ -256,7 +266,14 @@ export const portfolioData = {
         en: "• Collaborated within an engineering team to develop and refine user interface components for internal web systems using HTML, CSS, Bootstrap, and JavaScript.\n• Digitized physical court and suspect case records into secure digital databases and structured Excel spreadsheets, significantly expediting data retrieval workflows.\n• Maintained high data accuracy during high-volume manual record processing and administrative archive management.",
         id: "• Berkolaborasi dengan tim engineering untuk mengembangkan dan menyempurnakan komponen antarmuka sistem web internal menggunakan HTML, CSS, Bootstrap, dan JavaScript.\n• Mendigitalkan berkas perkara dan catatan pengadilan fisik ke dalam basis data digital yang aman serta spreadsheet Excel terstruktur guna mempercepat alur temu kembali data.\n• Menjaga akurasi data yang tinggi selama pemrosesan arsip manual bervolume besar dan pengelolaan arsip administrasi.",
       },
-      skills: ["HTML", "CSS", "Bootstrap", "JavaScript", "Database Management", "Data Processing"],
+      skills: [
+        "HTML",
+        "CSS",
+        "Bootstrap",
+        "JavaScript",
+        "Database Management",
+        "Data Processing",
+      ],
     },
   ],
 
@@ -361,8 +378,10 @@ export const portfolioData = {
           en: "Interactive Learning Management System combining React, role-based experiences, and a hybrid Google Sheets architecture.",
           id: "Learning Management System interaktif yang menggabungkan React, pengalaman berbasis peran, dan arsitektur hybrid Google Sheets.",
         },
-        tags: ["React 19", "Tailwind CSS", "Vite", "Google Apps Script"],
-        link: "https://hi-platy.vercel.app",
+        tags: ["React 19", "Tailwind CSS", "Vite", "PostgreSQL"],
+        live: "https://hi-platy.vercel.app",
+        github: "https://github.com/Syechan112/HiPlaty",
+        image: hiplatyImg,
         featured: true,
       },
       {
@@ -374,7 +393,9 @@ export const portfolioData = {
           id: "Platform layanan digital untuk bisnis lokal, berfokus pada informasi layanan yang jelas dan kemudahan akses konsultasi.",
         },
         tags: ["Vue.js", "Tailwind CSS"],
-        link: "https://nusa-code.vercel.app",
+        live: "https://nusa-code.vercel.app",
+        github: "https://github.com/Syechan112/nusa-code",
+        image: nusacodeImg,
         featured: true,
       },
       {
@@ -386,7 +407,9 @@ export const portfolioData = {
           id: "Company profile modern dan platform perawatan fasilitas komersial berkelanjutan dengan arsitektur bersih dan desain responsif.",
         },
         tags: ["Vue.js", "Tailwind CSS", "Vite"],
-        link: "https://aetheria-profile.vercel.app/",
+        live: "https://aetheria-profile.vercel.app/",
+        github: "https://github.com/Syechan112/aetheria-profile",
+        image: atheriaImg,
         featured: true,
       },
       {
@@ -398,7 +421,7 @@ export const portfolioData = {
           id: "REST API Laravel untuk manajemen vendor, katalog produk, autentikasi, dan relasi basis data.",
         },
         tags: ["Laravel", "PHP", "MySQL", "Sanctum"],
-        link: "https://github.com/Syechan112/vendor-procurement-system",
+        github: "https://github.com/Syechan112/vendor-procurement-system",
         featured: false,
       },
       {
@@ -410,7 +433,7 @@ export const portfolioData = {
           id: "Aplikasi web presensi siswa, pelaporan otomatis, dan manajemen sekolah berbasis peran.",
         },
         tags: ["Laravel", "PHP", "Blade", "Alpine.js", "Tailwind CSS"],
-        link: "https://github.com/Syechan112/Absensi-Sekolah",
+        github: "https://github.com/Syechan112/Absensi-Sekolah",
         featured: false,
       },
       {
@@ -422,7 +445,7 @@ export const portfolioData = {
           id: "Website coffee shop responsif dengan menu interaktif dan navigasi yang intuitif.",
         },
         tags: ["HTML", "JavaScript", "CSS", "Tailwind CSS"],
-        link: "https://github.com/Syechan112/coffe-shop",
+        github: "https://github.com/Syechan112/coffe-shop",
         featured: false,
       },
       {
@@ -434,7 +457,7 @@ export const portfolioData = {
           id: "Platform blog dinamis dengan manajemen artikel, kategori, autentikasi pengguna, dan komentar.",
         },
         tags: ["Laravel 11", "PHP", "Blade", "Alpine.js", "Tailwind CSS"],
-        link: "https://github.com/Syechan112/blog-post",
+        github: "https://github.com/Syechan112/blog-post",
         featured: false,
       },
       {
@@ -446,7 +469,7 @@ export const portfolioData = {
           id: "Aplikasi manajemen tugas berbasis operasi CRUD dengan antarmuka dinamis Laravel dan Blade.",
         },
         tags: ["Laravel", "PHP", "Blade", "JavaScript"],
-        link: "https://github.com/Syechan112/todo-list",
+        github: "https://github.com/Syechan112/todo-list",
         featured: false,
       },
     ],

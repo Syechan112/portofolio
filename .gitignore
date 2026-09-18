@@ -27,3 +27,4 @@ dist-ssr
 .oxlintrc.json
 .playwright-mcp/
 page.md
+CHANGES.md
