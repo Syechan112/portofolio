@@ -1,6 +1,7 @@
 import hiplatyImg from "../assets/projects/hiplaty.webp";
 import nusacodeImg from "../assets/projects/nusacode.webp";
 import atheriaImg from "../assets/projects/atheria.webp";
+import superposImg from "../assets/projects/superpos.png";
 
 export const portfolioData = {
   personal: {
@@ -24,7 +25,7 @@ export const portfolioData = {
     },
     stats: [
       {
-        value: 5,
+        value: 6,
         suffix: "+",
         label: {
           en: "Projects Completed",
@@ -372,6 +373,24 @@ export const portfolioData = {
     projects: [
       {
         id: 1,
+        title: "Super POS",
+        category: "Web",
+        tagline: {
+          en: "Modern, high-performance Point of Sale (POS) and Inventory Management system with multi-role auth, real-time stock tracking, and sales analytics.",
+          id: "Aplikasi Web Point of Sale (POS / Kasir) dan Manajemen Inventaris Modern dengan autentikasi multi-role, pelacakan stok real-time, dan analitik penjualan.",
+        },
+        description: {
+          en: "A modern, responsive, high-performance, and production-ready Web Point of Sale (POS / Cashier) & Inventory Management application. Specially designed for retail stores, cafes, minimarts, or SMEs with multi-role authentication, real-time stock tracking, barcode scanner simulation, cashier thermal receipt printing, and interactive sales analytics with PDF & Excel export.\n\n🚀 Ready for Demo (Zero-Backend Setup): Built with a LocalStorage persistence abstraction layer featuring auto-seeded initial datasets (product catalog, transaction history, and multi-role accounts). You can test and explore the live demo instantly with zero external database configuration.",
+          id: "Aplikasi Web Point of Sale (POS / Kasir) dan Manajemen Inventaris Modern yang responsif, berkecepatan tinggi, dan production-ready. Dirancang khusus untuk kebutuhan toko retail, cafe, minimarket, atau UMKM dengan dukungan multi-role authentication, pelacakan stok real-time, simulasi scanner barcode, pencetakan struk thermal kasir, serta analitik penjualan interaktif dengan ekspor PDF dan Excel.\n\n🚀 Siap Demo (Zero-Backend Setup): Aplikasi ini menggunakan mesin persistensi LocalStorage abstraction layer dengan auto-seed initial dataset (katalog produk, riwayat transaksi, & akun multi-role). Anda dapat langsung menjalankan demo dalam hitungan detik tanpa perlu mengonfigurasi database eksternal.",
+        },
+        tags: ["React", "Tailwind CSS", "Vite", "LocalStorage", "POS & Kasir", "Analytics"],
+        live: "https://demo-pos-swart.vercel.app/",
+        github: "https://github.com/Syechan112/demo-pos-v1",
+        image: superposImg,
+        featured: true,
+      },
+      {
+        id: 2,
         title: "HiPlaty",
         category: "Web",
         tagline: {
@@ -385,7 +404,7 @@ export const portfolioData = {
         featured: true,
       },
       {
-        id: 2,
+        id: 3,
         title: "Nusa Code",
         category: "Web",
         tagline: {
@@ -399,7 +418,7 @@ export const portfolioData = {
         featured: true,
       },
       {
-        id: 3,
+        id: 4,
         title: "Aetheria",
         category: "Web",
         tagline: {
@@ -413,7 +432,7 @@ export const portfolioData = {
         featured: true,
       },
       {
-        id: 4,
+        id: 5,
         title: "E-Procurement API",
         category: "Backend",
         tagline: {
@@ -425,7 +444,7 @@ export const portfolioData = {
         featured: false,
       },
       {
-        id: 5,
+        id: 6,
         title: "Sistem Absensi Sekolah",
         category: "Web",
         tagline: {
@@ -437,7 +456,7 @@ export const portfolioData = {
         featured: false,
       },
       {
-        id: 6,
+        id: 7,
         title: "Aroma Kopi",
         category: "Frontend",
         tagline: {
@@ -449,7 +468,7 @@ export const portfolioData = {
         featured: false,
       },
       {
-        id: 7,
+        id: 8,
         title: "Blog Post Laravel",
         category: "Web",
         tagline: {
@@ -461,7 +480,7 @@ export const portfolioData = {
         featured: false,
       },
       {
-        id: 8,
+        id: 9,
         title: "Todo List Laravel",
         category: "Web",
         tagline: {

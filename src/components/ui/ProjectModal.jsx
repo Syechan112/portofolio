@@ -120,7 +120,7 @@ const ProjectModal = ({ project, isOpen, onClose, darkMode }) => {
             </div>
 
             <p
-              className={`text-xs sm:text-base leading-relaxed ${
+              className={`text-xs sm:text-base leading-relaxed whitespace-pre-line ${
                 darkMode ? "text-neutral-300" : "text-neutral-700"
               }`}>
               {descriptionText}
